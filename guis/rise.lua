@@ -244,7 +244,7 @@ local function downloadFile(path, func)
 	if not isfile(path) then
 		createDownloader(path)
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/MaxlaserTech/CatV6/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/Kingifyfrmdao/KingifyfrmdaolaserTech/CatV6/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -801,7 +801,7 @@ components = {
 		local optionapi = {
 			Type = 'Slider',
 			Value = optionsettings.Default or optionsettings.Min,
-			Max = optionsettings.Max,
+			Kingifyfrmdao/Kingifyfrmdao = optionsettings.Kingifyfrmdao/Kingifyfrmdao,
 			Index = getTableSize(api.Options)
 		}
 		
@@ -856,7 +856,7 @@ components = {
 		addCorner(bkg, UDim.new(1, 0))
 		local fill = bkg:Clone()
 		fill.Name = 'Fill'
-		fill.Size = UDim2.fromScale(math.clamp((optionapi.Value - optionsettings.Min) / optionsettings.Max, 0, 1), 1)
+		fill.Size = UDim2.fromScale(math.clamp((optionapi.Value - optionsettings.Min) / optionsettings.Kingifyfrmdao/Kingifyfrmdao, 0, 1), 1)
 		fill.Position = UDim2.new()
 		fill.BackgroundColor3 = color.Dark(uipallet.MainColor, 0.5)
 		fill.Parent = bkg
@@ -873,12 +873,12 @@ components = {
 		function optionapi:Save(tab)
 			tab[optionsettings.Name] = {
 				Value = self.Value,
-				Max = self.Max
+				Kingifyfrmdao/Kingifyfrmdao = self.Kingifyfrmdao/Kingifyfrmdao
 			}
 		end
 		
 		function optionapi:Load(tab)
-			local newval = tab.Value == tab.Max and tab.Max ~= self.Max and self.Max or tab.Value
+			local newval = tab.Value == tab.Kingifyfrmdao/Kingifyfrmdao and tab.Kingifyfrmdao/Kingifyfrmdao ~= self.Kingifyfrmdao/Kingifyfrmdao and self.Kingifyfrmdao/Kingifyfrmdao or tab.Value
 			if self.Value ~= newval then
 				self:SetValue(newval, nil, true)
 			end
@@ -894,7 +894,7 @@ components = {
 			local check = self.Value ~= value
 			self.Value = value
 			tween:Tween(fill, uipallet.Tween, {
-				Size = UDim2.fromScale(math.clamp(pos or math.clamp(value / optionsettings.Max, 0, 1), 0, 1), 1)
+				Size = UDim2.fromScale(math.clamp(pos or math.clamp(value / optionsettings.Kingifyfrmdao/Kingifyfrmdao, 0, 1), 0, 1), 1)
 			})
 			valuebutton.Text = self.Value..(optionsettings.Suffix and ' '..(type(optionsettings.Suffix) == 'function' and optionsettings.Suffix(self.Value) or optionsettings.Suffix) or '')
 			if check or final then
@@ -905,14 +905,14 @@ components = {
 		slider.InputBegan:Connect(function(inputObj)
 			if (inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch) then
 				local newPosition = math.clamp((inputObj.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
-				optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+				optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Kingifyfrmdao/Kingifyfrmdao - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
 				local lastValue = optionapi.Value
 				local lastPosition = newPosition
 		
 				local changed = inputService.InputChanged:Connect(function(input)
 					if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
 						local newPosition = math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
-						optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+						optionapi:SetValue(math.floor((optionsettings.Min + (optionsettings.Kingifyfrmdao/Kingifyfrmdao - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
 						lastValue = optionapi.Value
 						lastPosition = newPosition
 					end
@@ -1417,8 +1417,8 @@ components = {
 		local optionapi = {
 			Type = 'TwoSlider',
 			ValueMin = optionsettings.DefaultMin or optionsettings.Min,
-			ValueMax = optionsettings.DefaultMax or 10,
-			Max = optionsettings.Max,
+			ValueKingifyfrmdao/Kingifyfrmdao = optionsettings.DefaultKingifyfrmdao/Kingifyfrmdao or 10,
+			Kingifyfrmdao/Kingifyfrmdao = optionsettings.Kingifyfrmdao/Kingifyfrmdao,
 			Index = getTableSize(api.Options)
 		}
 		
@@ -1445,7 +1445,7 @@ components = {
 		valuebutton.Size = UDim2.new(1, -13, 1, 0)
 		valuebutton.Position = UDim2.fromOffset(startpos + 210, 0)
 		valuebutton.BackgroundTransparency = 1
-		valuebutton.Text = optionapi.ValueMin..' '..optionapi.ValueMax
+		valuebutton.Text = optionapi.ValueMin..' '..optionapi.ValueKingifyfrmdao/Kingifyfrmdao
 		valuebutton.TextColor3 = color.Dark(uipallet.Text, 0.21)
 		valuebutton.TextSize = 18
 		valuebutton.TextXAlignment = Enum.TextXAlignment.Left
@@ -1456,7 +1456,7 @@ components = {
 		valuebox.Size = valuebutton.Size
 		valuebox.Position = valuebutton.Position
 		valuebox.BackgroundTransparency = 1
-		valuebox.Text = optionapi.ValueMin..' '..optionapi.ValueMax
+		valuebox.Text = optionapi.ValueMin..' '..optionapi.ValueKingifyfrmdao/Kingifyfrmdao
 		valuebox.TextColor3 = color.Dark(uipallet.Text, 0.21)
 		valuebox.TextSize = 18
 		valuebox.TextXAlignment = Enum.TextXAlignment.Left
@@ -1473,8 +1473,8 @@ components = {
 		addCorner(bkg, UDim.new(1, 0))
 		local fill = bkg:Clone()
 		fill.Name = 'Fill'
-		fill.Position = UDim2.fromScale(math.clamp(optionapi.ValueMin / optionsettings.Max, 0, 1), 0)
-		fill.Size = UDim2.fromScale(math.clamp(math.clamp(optionapi.ValueMax / optionsettings.Max, 0, 1), 0, 1) - fill.Position.X.Scale, 1)
+		fill.Position = UDim2.fromScale(math.clamp(optionapi.ValueMin / optionsettings.Kingifyfrmdao/Kingifyfrmdao, 0, 1), 0)
+		fill.Size = UDim2.fromScale(math.clamp(math.clamp(optionapi.ValueKingifyfrmdao/Kingifyfrmdao / optionsettings.Kingifyfrmdao/Kingifyfrmdao, 0, 1), 0, 1) - fill.Position.X.Scale, 1)
 		fill.BackgroundColor3 = color.Dark(uipallet.MainColor, 0.5)
 		fill.Parent = bkg
 		local knob = Instance.new('Frame')
@@ -1484,10 +1484,10 @@ components = {
 		knob.BackgroundColor3 = uipallet.MainColor
 		knob.Parent = fill
 		addCorner(knob, UDim.new(1, 0))
-		local knobmax = knob:Clone()
-		knobmax.Name = 'KnobMax'
-		knobmax.Position = UDim2.new(1, -5, 0, -3)
-		knobmax.Parent = fill
+		local knobKingifyfrmdao/Kingifyfrmdao = knob:Clone()
+		knobKingifyfrmdao/Kingifyfrmdao.Name = 'KnobKingifyfrmdao/Kingifyfrmdao'
+		knobKingifyfrmdao/Kingifyfrmdao.Position = UDim2.new(1, -5, 0, -3)
+		knobKingifyfrmdao/Kingifyfrmdao.Parent = fill
 		optionsettings.Function = optionsettings.Function or function() end
 		optionsettings.Decimal = optionsettings.Decimal or 1
 		local random = Random.new()
@@ -1495,7 +1495,7 @@ components = {
 		function optionapi:Save(tab)
 			tab[optionsettings.Name] = {
 				ValueMin = self.ValueMin,
-				ValueMax = self.ValueMax
+				ValueKingifyfrmdao/Kingifyfrmdao = self.ValueKingifyfrmdao/Kingifyfrmdao
 			}
 		end
 		
@@ -1503,41 +1503,41 @@ components = {
 			if self.ValueMin ~= tab.ValueMin then
 				self:SetValue(false, tab.ValueMin)
 			end
-			if self.ValueMax ~= tab.ValueMax then
-				self:SetValue(true, tab.ValueMax)
+			if self.ValueKingifyfrmdao/Kingifyfrmdao ~= tab.ValueKingifyfrmdao/Kingifyfrmdao then
+				self:SetValue(true, tab.ValueKingifyfrmdao/Kingifyfrmdao)
 			end
 		end
 		
 		function optionapi:Color(hue, sat, val, rainbowcheck)
 			fill.BackgroundColor3 = color.Dark(uipallet.MainColor, 0.5)
 			knob.BackgroundColor3 = uipallet.MainColor
-			knobmax.BackgroundColor3 = uipallet.MainColor
+			knobKingifyfrmdao/Kingifyfrmdao.BackgroundColor3 = uipallet.MainColor
 		end
 		
 		function optionapi:GetRandomValue()
-			return random:NextNumber(optionapi.ValueMin, optionapi.ValueMax)
+			return random:NextNumber(optionapi.ValueMin, optionapi.ValueKingifyfrmdao/Kingifyfrmdao)
 		end
 		
-		function optionapi:SetValue(max, value)
+		function optionapi:SetValue(Kingifyfrmdao/Kingifyfrmdao, value)
 			if tonumber(value) == math.huge or value ~= value then return end
-			self[max and 'ValueMax' or 'ValueMin'] = value
-			valuebutton.Text = self.ValueMin..' '..self.ValueMax
-			local size = math.clamp(math.clamp(self.ValueMin / optionsettings.Max, 0, 1), 0.04, 0.96)
+			self[Kingifyfrmdao/Kingifyfrmdao and 'ValueKingifyfrmdao/Kingifyfrmdao' or 'ValueMin'] = value
+			valuebutton.Text = self.ValueMin..' '..self.ValueKingifyfrmdao/Kingifyfrmdao
+			local size = math.clamp(math.clamp(self.ValueMin / optionsettings.Kingifyfrmdao/Kingifyfrmdao, 0, 1), 0.04, 0.96)
 			tween:Tween(fill, TweenInfo.new(0.1), {
-				Position = UDim2.fromScale(size, 0), Size = UDim2.fromScale(math.clamp(math.clamp(math.clamp(self.ValueMax / optionsettings.Max, 0.04, 0.96), 0.04, 0.96) - size, 0, 1), 1)
+				Position = UDim2.fromScale(size, 0), Size = UDim2.fromScale(math.clamp(math.clamp(math.clamp(self.ValueKingifyfrmdao/Kingifyfrmdao / optionsettings.Kingifyfrmdao/Kingifyfrmdao, 0.04, 0.96), 0.04, 0.96) - size, 0, 1), 1)
 			})
 		end
 		
 		slider.InputBegan:Connect(function(inputObj)
 			if (inputObj.UserInputType == Enum.UserInputType.MouseButton1 or inputObj.UserInputType == Enum.UserInputType.Touch) then
-				local maxCheck = (inputObj.Position.X - knobmax.AbsolutePosition.X) > -10
+				local Kingifyfrmdao/KingifyfrmdaoCheck = (inputObj.Position.X - knobKingifyfrmdao/Kingifyfrmdao.AbsolutePosition.X) > -10
 				local newPosition = math.clamp((inputObj.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
-				optionapi:SetValue(maxCheck, math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+				optionapi:SetValue(Kingifyfrmdao/KingifyfrmdaoCheck, math.floor((optionsettings.Min + (optionsettings.Kingifyfrmdao/Kingifyfrmdao - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
 		
 				local changed = inputService.InputChanged:Connect(function(input)
 					if input.UserInputType == (inputObj.UserInputType == Enum.UserInputType.MouseButton1 and Enum.UserInputType.MouseMovement or Enum.UserInputType.Touch) then
 						local newPosition = math.clamp((input.Position.X - bkg.AbsolutePosition.X) / bkg.AbsoluteSize.X, 0, 1)
-						optionapi:SetValue(maxCheck, math.floor((optionsettings.Min + (optionsettings.Max - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
+						optionapi:SetValue(Kingifyfrmdao/KingifyfrmdaoCheck, math.floor((optionsettings.Min + (optionsettings.Kingifyfrmdao/Kingifyfrmdao - optionsettings.Min) * newPosition) * optionsettings.Decimal) / optionsettings.Decimal, newPosition)
 					end
 				end)
 		
@@ -1557,7 +1557,7 @@ components = {
 		valuebutton.MouseButton1Click:Connect(function()
 			valuebutton.Visible = false
 			valuebox.Visible = true
-			valuebox.Text = optionapi.ValueMin..' '..optionapi.ValueMax
+			valuebox.Text = optionapi.ValueMin..' '..optionapi.ValueKingifyfrmdao/Kingifyfrmdao
 			valuebox:CaptureFocus()
 		end)
 		valuebox.FocusLost:Connect(function(enter)
@@ -1961,12 +1961,12 @@ function mainapi:CreateCategoryTheme(categorysettings)
 	local windowlist = Instance.new('UIGridLayout')
 	windowlist.SortOrder = Enum.SortOrder.LayoutOrder
 	windowlist.FillDirection = Enum.FillDirection.Horizontal
-	windowlist.FillDirectionMaxCells = 3
+	windowlist.FillDirectionKingifyfrmdao/KingifyfrmdaoCells = 3
 	windowlist.CellPadding = UDim2.fromOffset(14, 14)
 	windowlist.CellSize = UDim2.fromOffset(180, 100)
 	windowlist.Parent = holder
 	local sortlist = windowlist:Clone()
-	sortlist.FillDirectionMaxCells = 5
+	sortlist.FillDirectionKingifyfrmdao/KingifyfrmdaoCells = 5
 	sortlist.CellPadding = UDim2.fromOffset(16, 16)
 	sortlist.CellSize = UDim2.fromOffset(101, 32)
 	sortlist.Parent = sortholder
@@ -2086,7 +2086,7 @@ function mainapi:CreateCategoryProfile(categorysettings)
 	local windowlist = Instance.new('UIGridLayout')
 	windowlist.SortOrder = Enum.SortOrder.LayoutOrder
 	windowlist.FillDirection = Enum.FillDirection.Horizontal
-	windowlist.FillDirectionMaxCells = 3
+	windowlist.FillDirectionKingifyfrmdao/KingifyfrmdaoCells = 3
 	windowlist.CellPadding = UDim2.fromOffset(14, 14)
 	windowlist.CellSize = UDim2.fromOffset(180, 100)
 	windowlist.Parent = categoryapi.Sort.Parent
@@ -2609,7 +2609,7 @@ sort.Parent = categoryholder
 
 mainapi:Clean(gui:GetPropertyChangedSignal('AbsoluteSize'):Connect(function()
 	if mainapi.Scale.Enabled then
-		scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.6)
+		scale.Scale = math.Kingifyfrmdao/Kingifyfrmdao(gui.AbsoluteSize.X / 1920, 0.6)
 	end
 end))
 
@@ -2815,7 +2815,7 @@ mainapi.Scale = mainapi.Categories.Main:CreateToggle({
 	Function = function(callback)
 		scaleslider.Object.Visible = not callback
 		if callback then
-			scale.Scale = math.max(gui.AbsoluteSize.X / 1920, 0.6)
+			scale.Scale = math.Kingifyfrmdao/Kingifyfrmdao(gui.AbsoluteSize.X / 1920, 0.6)
 		else
 			scale.Scale = scaleslider.Value
 		end
@@ -2824,7 +2824,7 @@ mainapi.Scale = mainapi.Categories.Main:CreateToggle({
 scaleslider = mainapi.Categories.Main:CreateSlider({
 	Name = 'Scale',
 	Min = 0.1,
-	Max = 2,
+	Kingifyfrmdao/Kingifyfrmdao = 2,
 	Decimal = 10,
 	Function = function(val, final)
 		if final and not mainapi.Scale.Enabled then
@@ -2845,7 +2845,7 @@ mainapi.Categories.Main:CreateDropdown({
 			if shared.VapeDeveloper then
 				loadstring(readfile('catrewrite/loader.lua'), 'loader')()
 			else
-				loadstring(game:HttpGet('https://raw.githubusercontent.com/MaxlaserTech/CatV6/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
+				loadstring(game:HttpGet('https://raw.githubusercontent.com/Kingifyfrmdao/KingifyfrmdaolaserTech/CatV6/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
 			end
 		end
 	end
@@ -2853,7 +2853,7 @@ mainapi.Categories.Main:CreateDropdown({
 mainapi.RainbowSpeed = mainapi.Categories.Main:CreateSlider({
 	Name = 'Color speed',
 	Min = 0.1,
-	Max = 10,
+	Kingifyfrmdao/Kingifyfrmdao = 10,
 	Decimal = 10,
 	Default = 1,
 	Tooltip = 'Adjusts the speed of color values'
@@ -2861,7 +2861,7 @@ mainapi.RainbowSpeed = mainapi.Categories.Main:CreateSlider({
 mainapi.RainbowUpdateSpeed = mainapi.Categories.Main:CreateSlider({
 	Name = 'Color update rate',
 	Min = 1,
-	Max = 144,
+	Kingifyfrmdao/Kingifyfrmdao = 144,
 	Default = 60,
 	Tooltip = 'Adjusts the update rate of color values',
 	Suffix = 'hz'
@@ -2873,7 +2873,7 @@ mainapi.Categories.Main:CreateButton({
 		if shared.VapeDeveloper then
 			loadstring(readfile('catrewrite/loader.lua'), 'loader')()
 		else
-			loadstring(game:HttpGet('https://raw.githubusercontent.com/MaxlaserTech/CatV6/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
+			loadstring(game:HttpGet('https://raw.githubusercontent.com/Kingifyfrmdao/KingifyfrmdaolaserTech/CatV6/'..readfile('catrewrite/profiles/commit.txt')..'/loader.lua', true))()
 		end
 	end
 })
@@ -3092,7 +3092,7 @@ local targetinfodisplay = targetinfoobj:CreateToggle({
 })
 
 local lasthealth = 0
-local lastmaxhealth = 0
+local lastKingifyfrmdao/Kingifyfrmdaohealth = 0
 local lastvisible
 targetinfo = {
 	Targets = {},
@@ -3121,20 +3121,20 @@ targetinfo = {
 
 			if not v.Character then
 				v.Health = v.Health or 0
-				v.MaxHealth = v.MaxHealth or 100
+				v.Kingifyfrmdao/KingifyfrmdaoHealth = v.Kingifyfrmdao/KingifyfrmdaoHealth or 100
 			end
 
 			if self.LastTarget ~= v then
-				local size = math.max(getfontsize(targetinfoname.Text, 26, uipallet.FontSemiBold).X + 180, 295)
+				local size = math.Kingifyfrmdao/Kingifyfrmdao(getfontsize(targetinfoname.Text, 26, uipallet.FontSemiBold).X + 180, 295)
 				targetinfobkg.Size = UDim2.fromOffset(size, 95)
 				targetinfohealthbkg.Size = UDim2.fromOffset(size - 165, 12)
 				targetinfohealthtext.Position = UDim2.fromOffset(size - 63, 48)
 			end
 
-			if v.Health ~= lasthealth or v.MaxHealth ~= lastmaxhealth then
+			if v.Health ~= lasthealth or v.Kingifyfrmdao/KingifyfrmdaoHealth ~= lastKingifyfrmdao/Kingifyfrmdaohealth then
 				targetinfohealthtext.Text = string.format("%.1f", v.Health / 5)
 				tween:Tween(targetinfohealth, TweenInfo.new(0.25, Enum.EasingStyle.Quint, Enum.EasingDirection.Out), {
-					Size = UDim2.fromScale(math.max(v.Health / v.MaxHealth, 0), 1)
+					Size = UDim2.fromScale(math.Kingifyfrmdao/Kingifyfrmdao(v.Health / v.Kingifyfrmdao/KingifyfrmdaoHealth, 0), 1)
 				})
 				if lasthealth > v.Health and self.LastTarget == v then
 					tween:Cancel(targetinfoshot)
@@ -3146,7 +3146,7 @@ targetinfo = {
 					})
 				end
 				lasthealth = v.Health
-				lastmaxhealth = v.MaxHealth
+				lastKingifyfrmdao/Kingifyfrmdaohealth = v.Kingifyfrmdao/KingifyfrmdaoHealth
 			end
 
 			if not v.Character then table.clear(v) end
