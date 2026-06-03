@@ -2,7 +2,7 @@
 local run = function(func)
     local ok, err = pcall(func)
     if not ok then
-        warn('[SKIDV7] module failed to load: ' .. tostring(err))
+        warn('[KingV4] module failed to load: ' .. tostring(err))
     end
 end
 local vapeEvents = setmetatable({}, {
@@ -2688,7 +2688,7 @@ run(function()
             return nil
         end
 
-        local function AutoClickSkid()
+        local function AutoClickKing()
             if Thread then task.cancel(Thread) end
             Thread = task_spawn(function()
                 repeat
@@ -2734,7 +2734,7 @@ run(function()
                             ActivationScheduled = task.delay(MIN_HOLD_TIME, function()
                                 ActivationScheduled = nil
                                 if inputService:IsMouseButtonPressed(Enum.UserInputType.MouseButton1) then
-                                    AutoClickSkid()
+                                    AutoClickKing()
                                 end
                             end)
                         end
@@ -2817,7 +2817,7 @@ run(function()
 
     local function createkitrender(plr)
         local icon = Instance.new("ImageLabel")
-        icon.Name = "SkidV7KitRender" 
+        icon.Name = "KingV7KitRender" 
         icon.AnchorPoint = Vector2.new(1, 0.5)
         icon.BackgroundTransparency = 1
         icon.Position = UDim2.new(1.05, 0, 0.5, 0)
@@ -2849,7 +2849,7 @@ run(function()
         end
         
         for _, v in ipairs(PlayerGui:GetDescendants()) do
-            if v:IsA("ImageLabel") and v.Name == "SkidV7KitRender" then  
+            if v:IsA("ImageLabel") and v.Name == "KingV7KitRender" then  
                 v:Destroy()
             end
         end
@@ -2915,7 +2915,7 @@ run(function()
             local card = container:FindFirstChild("1") and container["1"]:FindFirstChild("MatchDraftPlayerCard")
             if not card then return end
             
-            local icon = card:FindFirstChild("SkidV7KitRender")  
+            local icon = card:FindFirstChild("KingV7KitRender")  
             if not icon then
                 icon = createkitrender(playerFound)
                 icon.Parent = card
@@ -2950,7 +2950,7 @@ run(function()
     local function createKitLabel(parent, kitImage)
         if kitLabels[parent] then kitLabels[parent]:Destroy() end
         local kitLabel = Instance.new("ImageLabel")
-        kitLabel.Name = "SkidV7KitIcon"
+        kitLabel.Name = "KingV7KitIcon"
         kitLabel.Size = UDim2.new(1, 0, 1, 0)
         kitLabel.Position = UDim2.new(1.1, 0, 0, 0)
         kitLabel.BackgroundTransparency = 1
@@ -4734,7 +4734,7 @@ run(function()
 	})
 end)
 
--- skid killaura 
+-- King killaura 
 local Attacking
 run(function()
     local Killaura
@@ -6836,7 +6836,7 @@ run(function()
 	local OtherProjectiles
 	local Blacklist
 	local SortMethod
-	local SkidPAChargePercent
+	local KingPAChargePercent
 	local RandomHeadPercent
 	local RandomTorsoPercent
 	local CustomPrediction
@@ -7265,10 +7265,10 @@ run(function()
 						local customDrawDuration = 5
 						if AutoCharge.Enabled then
 							if projmeta.projectile:find('arrow') then
-								customDrawDuration = 0.58 * (SkidPAChargePercent.Value / 100)
+								customDrawDuration = 0.58 * (KingPAChargePercent.Value / 100)
 							elseif projmeta.projectile:find('frosty_snowball') then
 								local chargeTime = projmeta.maxDrawDurationSeconds or meta.maxDrawDurationSeconds or 0.8
-								customDrawDuration = chargeTime * (SkidPAChargePercent.Value / 100)
+								customDrawDuration = chargeTime * (KingPAChargePercent.Value / 100)
 							end
 						else
 							customDrawDuration = 0.05
@@ -7515,10 +7515,10 @@ run(function()
 		Name = "AutoCharge",
 		Default = true,
 		Function = function(v)
-			if SkidPAChargePercent and SkidPAChargePercent.Object then SkidPAChargePercent.Object.Visible = v end
+			if KingPAChargePercent and KingPAChargePercent.Object then KingPAChargePercent.Object.Visible = v end
 		end
 	})
-	SkidPAChargePercent = ProjectileAimbot:CreateSlider({
+	KingPAChargePercent = ProjectileAimbot:CreateSlider({
 		Name = 'Charge Percent',
 		Min = 1,
 		Max = 100,
@@ -7584,19 +7584,19 @@ run(function()
 						elseif typeof(bedwars.ShopTaxController.hasTax) == "boolean" then
 							bedwars.ShopTaxController.hasTax = false
 						else
-							vape:CreateNotification('TaxRemover',`Tax Remover error the type of hasTax is {typeof(bedwars.ShopTaxController.hasTax)} report to skid or soryed`,16,'alert')
+							vape:CreateNotification('TaxRemover',`Tax Remover error the type of hasTax is {typeof(bedwars.ShopTaxController.hasTax)} report to King or soryed`,16,'alert')
 							break
 						end
 						if typeof(bedwars.ShopTaxController.taxedItems) == "table" then
 							bedwars.ShopTaxController.taxedItems = {}
 						else
-							vape:CreateNotification('TaxRemover',`Tax Remover error the type of taxedItems is NOT a TABLE PLEASE report to skid or soryed ASAP`,16,'alert')
+							vape:CreateNotification('TaxRemover',`Tax Remover error the type of taxedItems is NOT a TABLE PLEASE report to King or soryed ASAP`,16,'alert')
 							break
 						end
 						if typeof(bedwars.ShopTaxController.addedTaxMap) == "table" then
 							bedwars.ShopTaxController.addedTaxMap = {}
 						else
-							vape:CreateNotification('TaxRemover',`Tax Remover error the type of addedTaxMap is NOT a TABLE PLEASE report to skid or soryed ASAP`,16,'alert')
+							vape:CreateNotification('TaxRemover',`Tax Remover error the type of addedTaxMap is NOT a TABLE PLEASE report to King or soryed ASAP`,16,'alert')
 							break
 						end
 						task.wait()
@@ -9085,7 +9085,7 @@ run(function()
             Strings[ent] = ent.Player and (DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or entityName
 
             if ent.Player and getAccountTier(lplr) > 0 then
-                local injData = getgenv()._skidInjectedUsers and getgenv()._skidInjectedUsers[ent.Player.UserId]
+                local injData = getgenv()._KingInjectedUsers and getgenv()._KingInjectedUsers[ent.Player.UserId]
                 if injData and getAccountTier(lplr) > injData.tier then
                     Strings[ent] = '<font color="#00FF88">[T'..tostring(injData.tier)..']</font> ' .. Strings[ent]
                 end
@@ -9672,7 +9672,7 @@ run(function()
             Strings[ent] = ent.Player and (DisplayName.Enabled and ent.Player.DisplayName or ent.Player.Name) or entityName
 
             if ent.Player and getAccountTier(lplr) > 0 then
-                local injData = getgenv()._skidInjectedUsers and getgenv()._skidInjectedUsers[ent.Player.UserId]
+                local injData = getgenv()._KingInjectedUsers and getgenv()._KingInjectedUsers[ent.Player.UserId]
                 if injData and getAccountTier(lplr) > injData.tier then
                     Strings[ent] = '<font color="#00FF88">[T'..tostring(injData.tier)..']</font> ' .. Strings[ent]
                 end
@@ -9863,7 +9863,7 @@ run(function()
                             newKitImage = res.renderImage
                         else
                             if not suc then
-                                warn(`[SKIDV7 MODULE ISSUE]: [Module - NameTags (Using bedwars.BedwarsKitMeta)] [Error]: {res}`)
+                                warn(`[KingV7 MODULE ISSUE]: [Module - NameTags (Using bedwars.BedwarsKitMeta)] [Error]: {res}`)
                             end
                             newKitImage = kitImageIds[kit] or kitImageIds['none']
                         end
@@ -17656,9 +17656,9 @@ run(function()
 	local processing = {}
 
 	local _req = (syn and syn.request) or (http_request and function(t) return http_request(t) end) or request or function() return {Body='{}'} end
-	if not getgenv()._skidv7_getBackendUrl then
+	if not getgenv()._Kingv7_getBackendUrl then
 		local _cachedUrl
-		getgenv()._skidv7_getBackendUrl = function()
+		getgenv()._Kingv7_getBackendUrl = function()
 			if _cachedUrl then return _cachedUrl end
 			local ok, res = pcall(function()
 				return _req({Url='https://gist.githubusercontent.com/poopparty/a817668f8805b6d44fa54ff13dc8edf4/raw/url.txt',Method='GET'})
@@ -17669,7 +17669,7 @@ run(function()
 			return _cachedUrl
 		end
 	end
-	local _bu = getgenv()._skidv7_getBackendUrl
+	local _bu = getgenv()._Kingv7_getBackendUrl
 
 	local listsLoaded = false
 	task.spawn(function()
@@ -17708,7 +17708,7 @@ run(function()
 		listsLoaded = true
 	end)
 
-	getgenv()._skidv7_staffCounts = {spec=0, closet=0, mod=0, impossible=0}
+	getgenv()._Kingv7_staffCounts = {spec=0, closet=0, mod=0, impossible=0}
 	local function refreshStaffCounts()
 		local c = {spec=0, closet=0, mod=0, impossible=0}
 		for _, data in pairs(detectedPlayers) do
@@ -17718,7 +17718,7 @@ run(function()
 			elseif ct == 'impossible_join' then c.impossible += 1
 			else c.mod += 1 end
 		end
-		getgenv()._skidv7_staffCounts = c
+		getgenv()._Kingv7_staffCounts = c
 		vapeEvents.StaffCountUpdate:Fire()
 	end
 
@@ -17924,7 +17924,7 @@ run(function()
 	local watchers = {}
 
 	local _req = (syn and syn.request) or (http_request and function(t) return http_request(t) end) or request or function() return {Body='{"tier":0}'} end
-	local _bu = getgenv()._skidv7_getBackendUrl or function()
+	local _bu = getgenv()._Kingv7_getBackendUrl or function()
 		local ok, res = pcall(function()
 			return _req({Url='https://gist.githubusercontent.com/poopparty/a817668f8805b6d44fa54ff13dc8edf4/raw/url.txt',Method='GET'})
 		end)
@@ -29582,7 +29582,7 @@ run(function()
 						bedwars.GlacialSkaterController:updateMomentum(100, "newValue")
 					end)
 					if not suc then
-						warn(`[SKIDV7 MODULE ISSUE]: [Module - InfKrystal (Starting to update Momentum)] [Error]: {res}`)
+						warn(`[KingV7 MODULE ISSUE]: [Module - InfKrystal (Starting to update Momentum)] [Error]: {res}`)
 						runService:UnbindFromRenderStep('InfiniteKrystalMovement')
 					end
 				end)
@@ -29593,7 +29593,7 @@ run(function()
 					bedwars.GlacialSkaterController:updateMomentum(0, "newValue")
 				end)
 				if not suc then
-					warn(`[SKIDV7 MODULE ISSUE]: [Module - InfKrystal (Resetting updateMomentum function)] [Error]: {res}`)
+					warn(`[KingV7 MODULE ISSUE]: [Module - InfKrystal (Resetting updateMomentum function)] [Error]: {res}`)
 				end
 			end
 		end
@@ -30954,7 +30954,7 @@ run(function()
 		elseif Mode.Value == 'Camera' then
 			targetPos = gameCamera.CFrame.Position + gameCamera.CFrame.LookVector * 200
 		else
-			vape:CreateNotification('MouseTP', 'Mode is currently nil. Report to skid or soryed', 6, 'warning')
+			vape:CreateNotification('MouseTP', 'Mode is currently nil. Report to King or soryed', 6, 'warning')
 			return
 		end
 
@@ -31005,7 +31005,7 @@ run(function()
 				)
 			end
 		else
-			vape:CreateNotification('MouseTP', 'Movement is currently nil. Report to skid or soryed', 6, 'warning')
+			vape:CreateNotification('MouseTP', 'Movement is currently nil. Report to King or soryed', 6, 'warning')
 			return
 		end
 	end
@@ -33865,7 +33865,7 @@ run(function()
 					if originalLabelColor then hpLabel.TextColor3 = originalLabelColor end
 					if originalLabelFont then hpLabel.Font = originalLabelFont end
 					local stroke = hpLabel:FindFirstChildWhichIsA('UIStroke')
-					if stroke and stroke.Name == 'SkidStroke' then stroke:Destroy() end
+					if stroke and stroke.Name == 'KingStroke' then stroke:Destroy() end
 				end)
 			end
 		end
@@ -33902,10 +33902,10 @@ run(function()
 		local function ensureStroke()
 			if cachedStroke and cachedStroke.Parent then return end
 			if not hpLabel then return end
-			cachedStroke = hpLabel:FindFirstChild('SkidStroke')
+			cachedStroke = hpLabel:FindFirstChild('KingStroke')
 			if not cachedStroke then
 				cachedStroke = Instance.new('UIStroke')
-				cachedStroke.Name = 'SkidStroke'
+				cachedStroke.Name = 'KingStroke'
 				cachedStroke.Color = Color3.new(0, 0, 0)
 				cachedStroke.Thickness = 2
 				cachedStroke.Parent = hpLabel
@@ -34619,7 +34619,7 @@ run(function()
 		if not character:FindFirstChild('HumanoidRootPart') then return end
 
 		nimFolder = Instance.new('Folder')
-		nimFolder.Name = 'SkidAura'
+		nimFolder.Name = 'KingAura'
 		nimFolder.Parent = workspace
 
 		local setup = setups[nimStyle]
@@ -34674,7 +34674,7 @@ run(function()
 
 	Aura = vape.Categories.Render:CreateModule({
 		Name = 'Aura',
-		Tooltip = 'skid = aura !!',
+		Tooltip = 'King = aura !!',
 		Function = function(callback)
 			if callback then
 				applyAura()
@@ -35168,7 +35168,7 @@ run(function()
 	end
 
 	SilentAura = vape.Categories.Combat:CreateModule({
-		Name = 'SilentAura(skid - testing)',
+		Name = 'SilentAura(King - testing)',
 		Function = function(callback)
 			if not callback then return end
 			task.spawn(function()
