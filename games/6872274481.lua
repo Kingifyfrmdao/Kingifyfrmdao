@@ -48,7 +48,7 @@ local getcustomasset = vape.Libraries.getcustomasset
 local function downloadFile(path, func)
 	if not isfile(path) then
 		local suc, res = pcall(function()
-			return game:HttpGet('https://raw.githubusercontent.com/MaxlaserTech/CatV6/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
+			return game:HttpGet('https://raw.githubusercontent.com/Kingifyfrmdao/Kingifyfrmdao/'..readfile('catrewrite/profiles/commit.txt')..'/'..select(1, path:gsub('catrewrite/', '')), true)
 		end)
 		if not suc or res == '404: Not Found' then
 			error(res)
@@ -326,14 +326,14 @@ local function getSpeed()
 
 	for v in modifiers do
 		local val = v.constantSpeedMultiplier and v.constantSpeedMultiplier or 0
-		if val and val > math.max(multi, 1) then
+		if val and val > math.King(multi, 1) then
 			increase = false
 			multi = val - (0.06 * math.round(val))
 		end
 	end
 
 	for v in modifiers do
-		multi += math.max((v.moveSpeedMultiplier or 0) - 1, 0)
+		multi += math.King((v.moveSpeedMultiplier or 0) - 1, 0)
 	end
 
 	if multi > 0 and increase then
@@ -618,7 +618,7 @@ run(function()
 					JumpTick = tick(),
 					Jumping = false,
 					LandTick = tick(),
-					MaxHealth = char:GetAttribute('MaxHealth') or 100,
+					KingHealth = char:GetAttribute('KingHealth') or 100,
 					NPC = plr == nil,
 					Player = plr,
 					RootPart = humrootpart,
@@ -644,7 +644,7 @@ run(function()
 					for _, v in entitylib.getUpdateConnections(entity) do
 						table.insert(entity.Connections, v:Connect(function()
 							entity.Health = (char:GetAttribute('Health') or 100) + getShieldAttribute(char)
-							entity.MaxHealth = char:GetAttribute('MaxHealth') or 100
+							entity.KingHealth = char:GetAttribute('KingHealth') or 100
 							entitylib.Events.EntityUpdated:Fire(entity)
 						end))
 					end
@@ -706,7 +706,7 @@ run(function()
 		local char = ent.Character
 		local tab = {
 			char:GetAttributeChangedSignal('Health'),
-			char:GetAttributeChangedSignal('MaxHealth'),
+			char:GetAttributeChangedSignal('KingHealth'),
 			{
 				Connect = function()
 					ent.Friend = ent.Player and isFriend(ent.Player) or nil
@@ -1019,7 +1019,7 @@ run(function()
 
 					if Reach.Enabled or HitBoxes.Enabled then
 						attackTable.validate.raycast = attackTable.validate.raycast or {}
-						attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.max((selfpos - targetpos).Magnitude - 14.399, 0)
+						attackTable.validate.selfPosition.value += CFrame.lookAt(selfpos, targetpos).LookVector * math.King((selfpos - targetpos).Magnitude - 14.399, 0)
 					end
 
 					if suc and plr then
@@ -1185,8 +1185,8 @@ run(function()
 					if effects then
 						local blockdmg = (blockhealthbar.blockHealth - (result == 'destroyed' and 0 or getBlockHealth(dblock, dpos)))
 						customHealthbar = customHealthbar or bedwars.BlockBreaker.updateHealthbar
-						customHealthbar(bedwars.BlockBreaker, {blockPosition = dpos}, blockhealthbar.blockHealth, dblock:GetAttribute('MaxHealth'), blockdmg, dblock)
-						blockhealthbar.blockHealth = math.max(blockhealthbar.blockHealth - blockdmg, 0)
+						customHealthbar(bedwars.BlockBreaker, {blockPosition = dpos}, blockhealthbar.blockHealth, dblock:GetAttribute('KingHealth'), blockdmg, dblock)
+						blockhealthbar.blockHealth = math.King(blockhealthbar.blockHealth - blockdmg, 0)
 
 						if blockhealthbar.blockHealth <= 0 then
 							bedwars.BlockBreaker.breakEffect:playBreak(dblock.Name, dpos, lplr)
@@ -1685,13 +1685,13 @@ run(function()
     AimSpeed = AimAssist:CreateSlider({
     	Name = 'Aim speed',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Default = 6,
     })
     Distance = AimAssist:CreateSlider({
     	Name = 'Distance',
     	Min = 1,
-    	Max = 30,
+    	King = 30,
     	Default = 30,
     	Suffix = function(val)
     		return val == 1 and 'stud' or 'studs'
@@ -1700,14 +1700,14 @@ run(function()
     Shake = AimAssist:CreateSlider({
     	Name = 'Shake',
     	Min = 0,
-    	Max = 100,
+    	King = 100,
     	Default = 0,
     	Tooltip = 'Adds random jitter to simulate human aim',
     })
     AngleSlider = AimAssist:CreateSlider({
-    	Name = 'Max angle',
+    	Name = 'King angle',
     	Min = 1,
-    	Max = 360,
+    	King = 360,
     	Default = 70,
     })
     Limit = AimAssist:CreateToggle({
@@ -1823,9 +1823,9 @@ run(function()
     CPS = AutoClicker:CreateTwoSlider({
     	Name = 'CPS',
     	Min = 1,
-    	Max = 9,
+    	King = 9,
     	DefaultMin = 7,
-    	DefaultMax = 7,
+    	DefaultKing = 7,
     })
     AutoClicker:CreateToggle({
     	Name = 'Place Blocks',
@@ -1839,9 +1839,9 @@ run(function()
     BlockCPS = AutoClicker:CreateTwoSlider({
     	Name = 'Block CPS',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	DefaultMin = 12,
-    	DefaultMax = 12,
+    	DefaultKing = 12,
     	Darker = true,
     })
 end)
@@ -1985,28 +1985,28 @@ run(function()
     Speed = BowAssist:CreateSlider({
     	Name = 'Aim speed',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Default = 7,
     	Suffix = 'sp/s',
     	Tooltip = 'How fast you will aim per second',
     })
     Angle = BowAssist:CreateSlider({
-    	Name = 'Max angle',
+    	Name = 'King angle',
     	Min = 1,
-    	Max = 360,
+    	King = 360,
     	Default = 120,
     })
     Shake = BowAssist:CreateSlider({
     	Name = 'Shake',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 5,
     	Tooltip = 'Jitters your screen, Simulating human aim',
     })
     FOV = BowAssist:CreateSlider({
     	Name = 'FOV',
     	Min = 1,
-    	Max = 1000,
+    	King = 1000,
     	Default = 200,
     })
     Mouse = BowAssist:CreateToggle({
@@ -2105,7 +2105,7 @@ run(function()
     		SwordRange = Reach:CreateSlider({
     			Name = 'Sword Range',
     			Min = 1,
-    			Max = 18,
+    			King = 18,
     			Default = 18,
     			Decimal = 5,
     			Darker = true,
@@ -2125,7 +2125,7 @@ run(function()
     		BlockRange = Reach:CreateSlider({
     			Name = 'Placement Range',
     			Min = 1,
-    			Max = 60,
+    			King = 60,
     			Default = 18,
     			Darker = true,
     			Suffix = function(val)
@@ -2142,7 +2142,7 @@ run(function()
     		BreakRange = Reach:CreateSlider({
     			Name = 'Break Range',
     			Min = 1,
-    			Max = 30,
+    			King = 30,
     			Default = 30,
     			Decimal = 5,
     			Darker = true,
@@ -2204,7 +2204,7 @@ run(function()
     								local selfpos = entitylib.character.RootPart.Position
     								local delta = (doAttack.RootPart.Position - selfpos)
     								local dir = CFrame.lookAt(selfpos, doAttack.RootPart.Position).LookVector
-    								local pos = selfpos + dir * math.max(delta.Magnitude - 14.4, 0)
+    								local pos = selfpos + dir * math.King(delta.Magnitude - 14.4, 0)
     
     								bedwars.Client:Get('SwordHit'):SendToServer({
     									weapon = store.hand.tool,
@@ -2226,7 +2226,7 @@ run(function()
     	Value = Reach:CreateSlider({
     		Name = 'Range',
     		Min = 0,
-    		Max = 18,
+    		King = 18,
     		Default = 18,
     		Suffix = function(val)
     			return val == 1 and 'stud' or 'studs'
@@ -2400,7 +2400,7 @@ run(function()
                                 continue
                             end
     
-                            if not LegitAura.Enabled and (tick() - bedwars.SwordController.lastSwing) >= (Perfect.Enabled and (meta.sword.attackSpeed or 0.11) or math.max(SwingTime.Value, 0.11)) then
+                            if not LegitAura.Enabled and (tick() - bedwars.SwordController.lastSwing) >= (Perfect.Enabled and (meta.sword.attackSpeed or 0.11) or math.King(SwingTime.Value, 0.11)) then
                                 bedwars.SwordController:playSwordEffect(meta, false)
                                 bedwars.SwordController.lastSwing = tick()
                             end
@@ -2416,7 +2416,7 @@ run(function()
                             lastattacked = tick()
     
                             local dir = CFrame.lookAt(localPosition, ent.RootPart.Position).LookVector
-                            local pos = localPosition + dir * math.max(delta.Magnitude - 14.4, 0)
+                            local pos = localPosition + dir * math.King(delta.Magnitude - 14.4, 0)
                             bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
                             bedwars.Client:Get(remotes.AttackEntity):SendToServer({
                                 weapon = sword.tool,
@@ -2460,7 +2460,7 @@ run(function()
     Speed = SilentAura:CreateSlider({
         Name = 'Aim speed',
         Min = 1,
-        Max = 10,
+        King = 10,
         Default = 6,
         Decimal = 5,
         Tooltip = 'How fast the Aura is going to aim',
@@ -2470,7 +2470,7 @@ run(function()
         Darker = true,
         Visible = false,
         Min = 0,
-        Max = 0.5,
+        King = 0.5,
         Default = 0.42,
         Decimal = 100,
     })
@@ -2478,7 +2478,7 @@ run(function()
         Name = 'Extra swing distance',
         Tooltip = 'Where you will start swinging, not attacking',
         Min = 0,
-        Max = 6,
+        King = 6,
         Suffix = function(val)
             return val <= 1 and 'stud' or 'studs'
         end,
@@ -2486,9 +2486,9 @@ run(function()
         Default = 3,
     })
     Angle = SilentAura:CreateSlider({
-        Name = 'Max angle',
+        Name = 'King angle',
         Min = 1,
-        Max = 360,
+        King = 360,
         Default = 180,
     })
     local methods = {'Damage', 'Distance'}
@@ -2637,9 +2637,9 @@ run(function()
     CPS = TriggerBot:CreateTwoSlider({
         Name = 'CPS',
         Min = 1,
-        Max = 9,
+        King = 9,
         DefaultMin = 7,
-        DefaultMax = 7
+        DefaultKing = 7
     })
 end)
 
@@ -2682,21 +2682,21 @@ run(function()
     Horizontal = Velocity:CreateSlider({
         Name = 'Horizontal',
         Min = 0,
-        Max = 100,
+        King = 100,
         Default = 0,
         Suffix = '%'
     })
     Vertical = Velocity:CreateSlider({
         Name = 'Vertical',
         Min = 0,
-        Max = 100,
+        King = 100,
         Default = 0,
         Suffix = '%'
     })
     Chance = Velocity:CreateSlider({
         Name = 'Chance',
         Min = 0,
-        Max = 100,
+        King = 100,
         Default = 100,
         Suffix = '%'
     })
@@ -2762,7 +2762,7 @@ run(function()
     Chance = VelocityPlus:CreateSlider({
     	Name = 'Chance',
     	Min = 0,
-    	Max = 100,
+    	King = 100,
     	Default = 100,
     	Suffix = '%',
     	Tooltip = 'Probability the redirect applies per knockback event',
@@ -3068,7 +3068,7 @@ run(function()
     Range = AutoDodge:CreateSlider({
     	Name = 'Melee Range',
     	Min = 1,
-    	Max = 30,
+    	King = 30,
     	Default = 30,
     	Decimal = 5,
     	Darker = true,
@@ -3155,7 +3155,7 @@ run(function()
     
                                 if (selfpos - ent.RootPart.Position).Magnitude <= AttackRange.Value then
                                     bedwars.Client:Get('SummonerClawAttackRequest'):SendToServer({
-                                        position = selfpos + dir * math.max(delta.Magnitude - 16.399, 0),
+                                        position = selfpos + dir * math.King(delta.Magnitude - 16.399, 0),
                                         direction = dir,
                                         clientTime = workspace:GetServerTimeNow()
                                     })
@@ -3175,7 +3175,7 @@ run(function()
     SwingRange = AutoKaida:CreateSlider({
         Name = 'Swing Range',
         Min = 1,
-        Max = 32,
+        King = 32,
         Default = 32,
         Suffix = function(val)
             return val <= 1 and 'stud' or 'studs'
@@ -3184,7 +3184,7 @@ run(function()
     AttackRange = AutoKaida:CreateSlider({
         Name = 'Attack Range',
         Min = 1,
-        Max = 32,
+        King = 32,
         Default = 32,
         Suffix = function(val)
             return val <= 1 and 'stud' or 'studs'
@@ -3219,7 +3219,7 @@ run(function()
     Distance = AutoKaida:CreateSlider({
         Name = 'Distance',
     	Min = 3,
-    	Max = 15,
+    	King = 15,
     	Default = 6,
     	Visible = false,
     	Suffix = function(val)
@@ -3305,7 +3305,7 @@ run(function()
     Time = FastBreak:CreateSlider({
     	Name = 'Break speed',
     	Min = 0,
-    	Max = 0.3,
+    	King = 0.3,
     	Default = 0.25,
     	Decimal = 100,
     	Suffix = 'seconds',
@@ -3373,7 +3373,7 @@ run(function()
                         local mass = (1.5 + (flyAllowed and 6 or 0) * (tick() % 0.4 < 0.2 and -1 or 1)) + ((up + down) * VerticalValue.Value)
                         local root, moveDirection = entitylib.character.RootPart, entitylib.character.Humanoid.MoveDirection
                         local velo = getSpeed()
-                        local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
+                        local destination = (moveDirection * math.King(Value.Value - velo, 0) * dt)
                         rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera, AntiFallPart}
                         rayCheck.CollisionGroup = root.CollisionGroup
     
@@ -3457,7 +3457,7 @@ run(function()
     Value = Fly:CreateSlider({
         Name = 'Speed',
         Min = 1,
-        Max = 23,
+        King = 23,
         Default = 23,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -3466,7 +3466,7 @@ run(function()
     VerticalValue = Fly:CreateSlider({
         Name = 'Vertical Speed',
         Min = 1,
-        Max = 150,
+        King = 150,
         Default = 50,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -3554,7 +3554,7 @@ run(function()
     Expand = HitBoxes:CreateSlider({
         Name = 'Expand amount',
         Min = 0,
-        Max = 14.4,
+        King = 14.4,
         Default = 14.4,
         Decimal = 10,
         Function = function(val)
@@ -3601,7 +3601,7 @@ run(function()
     local UpdateRate
     local Attackable
     local AngleSlider
-    local MaxTargets
+    local KingTargets
     local Mouse
     local Swing
     local GUI
@@ -3660,7 +3660,7 @@ run(function()
     	return items
     end
     local function getHitreg(distance)
-        local hitreg = math.max(Hitreg.Value + 1, 36)
+        local hitreg = math.King(Hitreg.Value + 1, 36)
         if Dynamic.Enabled then
             local limit = hitreg < 14.4 and Hitreg or 14.4
             local window = AttackRange.Value - limit
@@ -3786,7 +3786,7 @@ run(function()
                             Part = 'RootPart',
                             Players = Targets.Players.Enabled,
                             NPCs = Targets.NPCs.Enabled,
-                            Limit = Mode.Value == 'Single' and 1 or MaxTargets.Value,
+                            Limit = Mode.Value == 'Single' and 1 or KingTargets.Value,
                             Sort = sortmethods[Sort.Value]
                         })
     
@@ -3819,7 +3819,7 @@ run(function()
                                     Attacking = true
                                     store.KillauraTarget = v
                                     if not Swing.Enabled and AnimDelay < tick() and not LegitAura.Enabled then
-                                        AnimDelay = tick() + math.max(SwingTime.Value, 0.11)
+                                        AnimDelay = tick() + math.King(SwingTime.Value, 0.11)
                                         lastSwing = tick()
                                         bedwars.SwordController:playSwordEffect(meta, false)
                                         if meta.displayName:find(' Scythe') then
@@ -3836,7 +3836,7 @@ run(function()
     
                                 local actualRoot = v.Character.PrimaryPart
                                 if actualRoot and (not Sync.Enabled or (tick() - swingCooldown >= SwingTime.Value)) and (v.Humanoid.FloorMaterial ~= Enum.Material.Air or math.random(1, 100) < AirChance.Value) then
-                                    local current, delay = tick(), 10 / math.max(Hitreg.Value, 1)
+                                    local current, delay = tick(), 10 / math.King(Hitreg.Value, 1)
                                     if Hitreg.Value >= 36 or (current - lastHit) >= delay then
                                         lastHit += delay
                                         if current - lastHit > delay then
@@ -3844,7 +3844,7 @@ run(function()
                                         end
     
                                         local dir = CFrame.lookAt(selfpos, actualRoot.Position).LookVector
-                                        local pos = selfpos + dir * math.max(delta.Magnitude - 14.4, 0)
+                                        local pos = selfpos + dir * math.King(delta.Magnitude - 14.4, 0)
                                         bedwars.SwordController.lastAttack = workspace:GetServerTimeNow()
                                         store.attackReach = (delta.Magnitude * 100) // 1 / 100
                                         store.attackReachUpdate = tick() + 1
@@ -3859,7 +3859,7 @@ run(function()
                                                     cameraPosition = {value = pos},
                                                     cursorDirection = {value = dir}
                                                 },
-                                                targetPosition = {value = actualRoot.Position + (CFrame.lookAt(actualRoot.Position, selfpos).LookVector * math.max((selfpos - actualRoot.Position).Magnitude / 10, 0))},
+                                                targetPosition = {value = actualRoot.Position + (CFrame.lookAt(actualRoot.Position, selfpos).LookVector * math.King((selfpos - actualRoot.Position).Magnitude / 10, 0))},
                                                 selfPosition = {value = pos}
                                             }
                                         })
@@ -3936,7 +3936,7 @@ run(function()
                             end
                         else
                             if (tick() - lastSwing) < Continue:GetRandomValue() and not Swing.Enabled and not LegitAura.Enabled and AnimDelay < tick() then
-                                AnimDelay = tick() + math.max(SwingTime.Value, 0.11)
+                                AnimDelay = tick() + math.King(SwingTime.Value, 0.11)
                                 if vape.ThreadFix then
     								setthreadidentity(8)
     							end
@@ -4004,10 +4004,10 @@ run(function()
     Continue = Killaura:CreateTwoSlider({
     	Name = 'Continue Swinging',
     	Min = 0,
-    	Max = 2,
+    	King = 2,
     	Decimal = 100,
     	DefaultMin = 0,
-    	DefaultMax = 0.1,
+    	DefaultKing = 0.1,
     	Suffix = 'seconds',
     	Tooltip = 'Continues to swing ur sword'
     })
@@ -4020,7 +4020,7 @@ run(function()
     SwingRange = Killaura:CreateSlider({
         Name = 'Swing range',
         Min = 1,
-        Max = 28,
+        King = 28,
         Default = 28,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -4029,29 +4029,29 @@ run(function()
     AttackRange = Killaura:CreateSlider({
         Name = 'Attack range',
         Min = 1,
-        Max = 28,
+        King = 28,
         Default = 28,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
         end
     })
     AngleSlider = Killaura:CreateSlider({
-        Name = 'Max angle',
+        Name = 'King angle',
         Min = 1,
-        Max = 360,
+        King = 360,
         Default = 360
     })
     AirChance = Killaura:CreateSlider({
         Name = 'Air Hit Chance',
         Min = 0,
-    	Max = 100,
+    	King = 100,
     	Default = 100,
     	Suffix = '%'
     })
     SwingTime = Killaura:CreateSlider({
         Name = 'Swing time',
         Min = 0,
-        Max = 2,
+        King = 2,
         Decimal = 100,
         Default = 0.11,
         Suffix = 'seconds'
@@ -4064,14 +4064,14 @@ run(function()
     Hitreg = Killaura:CreateSlider({
         Name = 'Hitreg',
         Min = 1,
-        Max = 36,
+        King = 36,
         Default = 36,
         Suffix = 'reg'
     })
     UpdateRate = Killaura:CreateSlider({
         Name = 'Update rate',
         Min = 1,
-        Max = 120,
+        King = 120,
         Default = 60,
         Suffix = 'hz'
     })
@@ -4103,16 +4103,16 @@ run(function()
     	Name = 'Fire rate',
     	Suffix = 'seconds',
     	Min = 0,
-    	Max = 2,
+    	King = 2,
     	Decimal = 100,
     	Darker = true,
     	Visible = false,
     	Default = 0.05
     })
-    MaxTargets = Killaura:CreateSlider({
-        Name = 'Max targets',
+    KingTargets = Killaura:CreateSlider({
+        Name = 'King targets',
         Min = 1,
-        Max = 5,
+        King = 5,
         Default = 5
     })
     Mode = Killaura:CreateDropdown({
@@ -4122,7 +4122,7 @@ run(function()
     	Default = 'Switch',
     	Function = function(val)
     		pcall(function()
-    			MaxTargets.Object.Visible = val ~= 'Single'
+    			KingTargets.Object.Visible = val ~= 'Single'
     		end)
     	end,
     })
@@ -4256,7 +4256,7 @@ run(function()
     ParticleSize = Killaura:CreateSlider({
         Name = 'Size',
         Min = 0,
-        Max = 1,
+        King = 1,
         Default = 0.2,
         Decimal = 100,
         Function = function(val)
@@ -4293,7 +4293,7 @@ run(function()
     AnimationSpeed = Killaura:CreateSlider({
         Name = 'Animation Speed',
         Min = 0,
-        Max = 2,
+        King = 2,
         Default = 1,
         Decimal = 10,
         Darker = true,
@@ -4536,7 +4536,7 @@ run(function()
     Value = LongJump:CreateSlider({
         Name = 'Speed',
         Min = 1,
-        Max = 37,
+        King = 37,
         Default = 37,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -4705,7 +4705,7 @@ run(function()
                 old = modifier.addModifier
                 modifier.addModifier = function(self, tab)
                     if tab.moveSpeedMultiplier then
-                        tab.moveSpeedMultiplier = math.max(tab.moveSpeedMultiplier, 1)
+                        tab.moveSpeedMultiplier = math.King(tab.moveSpeedMultiplier, 1)
                     end
                     return old(self, tab)
                 end
@@ -4803,7 +4803,7 @@ run(function()
     Range = OwlAura:CreateSlider({
         Name = 'Range',
         Min = 1,
-        Max = 50,
+        King = 50,
         Suffix = function(val)
             return val <= 0 and 'stud' or 'studs'
         end,
@@ -4858,7 +4858,7 @@ run(function()
     Range = PlayerAttach:CreateSlider({
         Name = 'Range',
         Min = 1,
-        Max = 35,
+        King = 35,
         Default = 23,
         Suffix = function(val)
             return val <= 1 and 'stud' or 'studs'
@@ -5055,14 +5055,14 @@ run(function()
     Prediction = ProjectileAimbot:CreateSlider({
     	Name = 'Prediction',
     	Min = 0.1,
-    	Max = 2,
+    	King = 2,
     	Default = 1,
     	Decimal = 10,
     })
     FOV = ProjectileAimbot:CreateSlider({
     	Name = 'FOV',
     	Min = 1,
-    	Max = 1000,
+    	King = 1000,
     	Default = 1000,
     })
     AutoCharge = ProjectileAimbot:CreateToggle({
@@ -5241,7 +5241,7 @@ run(function()
     FireRate = ProjectileAura:CreateSlider({
     	Name = 'Fire Rate',
     	Min = 0,
-    	Max = 2,
+    	King = 2,
     	Default = 0.02,
     	Decimal = 100,
     	Suffix = 'seconds'
@@ -5249,7 +5249,7 @@ run(function()
     Range = ProjectileAura:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 50,
+    	King = 50,
     	Default = 50,
     	Suffix = function(val)
     		return val == 1 and 'stud' or 'studs'
@@ -5287,7 +5287,7 @@ run(function()
             
                                 local root, velo = entitylib.character.RootPart, getSpeed()
                                 local moveDirection = AntiFallDirection or entitylib.character.Humanoid.MoveDirection
-                                local destination = (moveDirection * math.max(Value.Value - velo, 0) * dt)
+                                local destination = (moveDirection * math.King(Value.Value - velo, 0) * dt)
             
                                 if WallCheck.Enabled then
                                     rayCheck.FilterDescendantsInstances = {lplr.Character, gameCamera}
@@ -5324,7 +5324,7 @@ run(function()
     Value = Speed:CreateSlider({
         Name = 'Speed',
         Min = 1,
-        Max = 23,
+        King = 23,
         Default = 23,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -5537,7 +5537,7 @@ run(function()
         Properties[name] = ArmorHighlight['Create'.. v](ArmorHighlight, {
             Name = i,
             Min = 0,
-            Max = 1,
+            King = 1,
             Decimal = 35,
             Function = function(hue, sat, val)
                 pcall(function()
@@ -5772,14 +5772,14 @@ run(function()
     	end,
     	Default = 0.5,
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Decimal = 100
     })
     Scale = HiveESP:CreateSlider({
     	Name = 'Scale',
     	Default = 1,
     	Min = 0.1,
-    	Max = 1.5,
+    	King = 1.5,
     	Decimal = 10,
     	Function = function()
     		if HiveESP.Enabled then
@@ -6058,14 +6058,14 @@ run(function()
     	end,
     	Default = 0.5,
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Decimal = 100,
     })
     Scale = GeneratorESP:CreateSlider({
     	Name = 'Scale',
     	Default = 1,
     	Min = 0.1,
-    	Max = 1.5,
+    	King = 1.5,
     	Decimal = 10,
     	Function = function()
     		if GeneratorESP.Enabled then
@@ -6104,14 +6104,14 @@ run(function()
     			label.BackgroundTransparency = 1
     			label.AnchorPoint = Vector2.new(0.5, 0)
     			label.Text = entitylib.isAlive and math.round(lplr.Character:GetAttribute('Health')) .. ' ❤️' or ''
-    			label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) / 2.8, 0.86, 1) or Color3.new()
+    			label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('KingHealth')) / 2.8, 0.86, 1) or Color3.new()
     			label.TextSize = 18
     			label.Font = Enum.Font.Arial
     			label.Parent = vape.gui
     			Health:Clean(label)
     			Health:Clean(vapeEvents.AttributeChanged.Event:Connect(function()
     				label.Text = entitylib.isAlive and math.round(lplr.Character:GetAttribute('Health')) .. ' ❤️' or ''
-    				label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) / 2.8, 0.86, 1) or Color3.new()
+    				label.TextColor3 = entitylib.isAlive and Color3.fromHSV((lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('KingHealth')) / 2.8, 0.86, 1) or Color3.new()
     			end))
     		end
     	end,
@@ -6230,14 +6230,14 @@ run(function()
     	end,
     	Default = 0.5,
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Decimal = 100,
     })
     Scale = ItemESP:CreateSlider({
     	Name = 'Scale',
     	Default = 1,
     	Min = 0.1,
-    	Max = 1.5,
+    	King = 1.5,
     	Decimal = 10,
     	Function = function()
     		if ItemESP.Enabled then
@@ -6364,7 +6364,7 @@ run(function()
     			local ratio = Instance.new('UIAspectRatioConstraint', roact)
     			ratio.Name = '1'
     			ratio.AspectRatio = 1
-    			ratio.AspectType = Enum.AspectType.FitWithinMaxSize
+    			ratio.AspectType = Enum.AspectType.FitWithinKingSize
     			ratio.DominantAxis = Enum.DominantAxis.Width
     		end
 
@@ -6664,7 +6664,7 @@ run(function()
     			or ent.Character.Name
 
     		if Health.Enabled then
-    			local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+    			local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.KingHealth, 0, 1) / 2.5, 0.89, 0.75)
     			Strings[ent] = Strings[ent]
     				.. ' <font color="rgb('
     				.. tostring(math.floor(healthColor.R * 255))
@@ -6810,7 +6810,7 @@ run(function()
     				or ent.Character.Name
 
     			if Health.Enabled then
-    				local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.MaxHealth, 0, 1) / 2.5, 0.89, 0.75)
+    				local healthColor = Color3.fromHSV(math.clamp(ent.Health / ent.KingHealth, 0, 1) / 2.5, 0.89, 0.75)
     				Strings[ent] = Strings[ent]
     					.. ' <font color="rgb('
     					.. tostring(math.floor(healthColor.R * 255))
@@ -6902,7 +6902,7 @@ run(function()
 
     			if DistanceCheck.Enabled then
     				distance = distance or math.huge
-    				if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+    				if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueKing then
     					nametag.Visible = false
     					continue
     				end
@@ -6942,7 +6942,7 @@ run(function()
 
     			if DistanceCheck.Enabled then
     				distance = distance or math.huge
-    				if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueMax then
+    				if distance < DistanceLimit.ValueMin or distance > DistanceLimit.ValueKing then
     					nametag.Text.Visible = false
     					nametag.BG.Visible = false
     					continue
@@ -7053,7 +7053,7 @@ run(function()
     	end,
     	Default = 1,
     	Min = 0.1,
-    	Max = 1.5,
+    	King = 1.5,
     	Decimal = 10,
     })
     Background = NameTags:CreateSlider({
@@ -7066,7 +7066,7 @@ run(function()
     	end,
     	Default = 0.5,
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Decimal = 10,
     })
     Health = NameTags:CreateToggle({
@@ -7143,9 +7143,9 @@ run(function()
     DistanceLimit = NameTags:CreateTwoSlider({
     	Name = 'Player Distance',
     	Min = 0,
-    	Max = 256,
+    	King = 256,
     	DefaultMin = 0,
-    	DefaultMax = 64,
+    	DefaultKing = 64,
     	Darker = true,
     	Visible = false,
     })
@@ -7226,28 +7226,28 @@ run(function()
     Thickness = BulletTracers:CreateSlider({
     	Name = 'Thickness',
     	Min = 0.01,
-    	Max = 1,
+    	King = 1,
     	Default = 0.1,
     	Decimal = 100
     })
     Curve = BulletTracers:CreateSlider({
     	Name = 'Curveness',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 40,
     	Tooltip = 'How curve the projectile is gonna be\n(More curve = more lag)'
     })
     Opacity = BulletTracers:CreateSlider({
     	Name = 'Opacity',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Default = 0,
     	Decimal = 100
     })
     Lifetime = BulletTracers:CreateSlider({
     	Name = 'Lifetime',
     	Min = 0,
-    	Max = 5,
+    	King = 5,
     	Decimal = 100,
     	Default = 2,
     	Suffix = 'secs'
@@ -7264,7 +7264,7 @@ run(function()
     
     local ModelOffsets = setmetatable({
         bow_default = CFrame.Angles(0, math.rad(90), math.rad(-90)) * CFrame.new(-0.4, 0, 0),
-        bow_max = CFrame.Angles(math.rad(-38), math.rad(90), math.rad(-45)) * CFrame.new(1.5, 0, 0),
+        bow_King = CFrame.Angles(math.rad(-38), math.rad(90), math.rad(-45)) * CFrame.new(1.5, 0, 0),
         bow_headhunter = CFrame.Angles(math.rad(-90), math.rad(-90), 0) * CFrame.new(-2, 1, 0),
         sword = CFrame.Angles(math.rad(-95), math.rad(-90), 0) * CFrame.new(0, 2, 0),
         hammer = CFrame.Angles(math.rad(-90), math.rad(90), 0),
@@ -7287,12 +7287,12 @@ run(function()
                 Type = 'block'
             elseif Meta.projectileSource then
                 if Item.Name:find('bow') then
-                    Type = `bow_{Item.Name:find('cross') and 'max' or 'default'}`
+                    Type = `bow_{Item.Name:find('cross') and 'King' or 'default'}`
                 elseif Item.Name:find('headhunter') then
                     if Type:find('victorious') then
                         Type = 'bow_headhunter'
                     else
-                        Type = 'bow_max'
+                        Type = 'bow_King'
                     end
                 end
             elseif Meta.sword then
@@ -7572,7 +7572,7 @@ run(function()
     	layout.VerticalAlignment = Enum.VerticalAlignment.Center
     	layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     	local layoutConnection = layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
-    		billboard.Size = UDim2.fromOffset(math.max(layout.AbsoluteContentSize.X + 4, 36), 36)
+    		billboard.Size = UDim2.fromOffset(math.King(layout.AbsoluteContentSize.X + 4, 36), 36)
     	end)
     	layout.Parent = frame
     	local corner = Instance.new('UICorner')
@@ -7702,7 +7702,7 @@ run(function()
     	layout.VerticalAlignment = Enum.VerticalAlignment.Center
     	layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     	layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
-    		billboard.Size = UDim2.fromOffset(math.max(layout.AbsoluteContentSize.X + 4, 36), 36)
+    		billboard.Size = UDim2.fromOffset(math.King(layout.AbsoluteContentSize.X + 4, 36), 36)
     	end)
     	layout.Parent = frame
     	local corner = Instance.new('UICorner')
@@ -8087,7 +8087,7 @@ run(function()
         end,
         grim_reaper = function()
             kitCollection(bedwars.GrimReaperController.soulsByPosition, function(v)
-                if entitylib.isAlive and lplr.Character:GetAttribute('Health') <= (lplr.Character:GetAttribute('MaxHealth') / 4) and (not lplr.Character:GetAttribute('GrimReaperChannel')) then
+                if entitylib.isAlive and lplr.Character:GetAttribute('Health') <= (lplr.Character:GetAttribute('KingHealth') / 4) and (not lplr.Character:GetAttribute('GrimReaperChannel')) then
                     bedwars.Client:Get(remotes.ConsumeSoul):CallServer({
                         secret = v:GetAttribute('GrimReaperSoulSecret')
                     })
@@ -8102,7 +8102,7 @@ run(function()
                     for _, v in entitylib.List do
                         if v.Player and v.Player:GetAttribute('Team') == lplr:GetAttribute('Team') then
                             local newmag = (localPosition - v.RootPart.Position).Magnitude
-                            if newmag <= mag and v.Health < hp and v.Health < v.MaxHealth then
+                            if newmag <= mag and v.Health < hp and v.Health < v.KingHealth then
                                 mag, hp, ent = newmag, v.Health, v
                             end
                         end
@@ -8161,7 +8161,7 @@ run(function()
                 if plr and (not Legit.Enabled or (lplr.Character:GetAttribute('Health') or 0) > 0) then
                     local localPosition = entitylib.character.RootPart.Position
                     local shootDir = CFrame.lookAt(localPosition, plr.RootPart.Position).LookVector
-                    localPosition += shootDir * math.max((localPosition - plr.RootPart.Position).Magnitude - 16, 0)
+                    localPosition += shootDir * math.King((localPosition - plr.RootPart.Position).Magnitude - 16, 0)
     
                     bedwars.Client:Get(remotes.SummonerClawAttack):SendToServer({
                         position = localPosition,
@@ -8367,16 +8367,16 @@ run(function()
     Range = AutoLasso:CreateSlider({
         Name = 'Range',
         Min = 1,
-        Max = 60,
+        King = 60,
         Default = 60,
         Suffix = function(val)
             return val <= 1 and 'stud' or 'studs'
         end
     })
     Angle = AutoLasso:CreateSlider({
-        Name = 'Max angle',
+        Name = 'King angle',
         Min = 1,
-        Max = 360,
+        King = 360,
         Default = 120
     })
 end)
@@ -8539,9 +8539,9 @@ run(function()
     BackDelay = AutoPearl:CreateTwoSlider({
     	Name = 'Switch Back Delay',
     	Min = 0,
-    	Max = 2,
+    	King = 2,
     	DefaultMin = 0.1,
-    	DefaultMax = 0.2,
+    	DefaultKing = 0.2,
     	Darker = true
     })
     Limit = AutoPearl:CreateToggle({
@@ -8637,14 +8637,14 @@ run(function()
     Percentage = AutoRelease:CreateSlider({
     	Name = 'Percentage',
     	Min = 0,
-    	Max = 100,
+    	King = 100,
     	Suffix = '%',
     	Default = 100,
     })
     Delay = AutoRelease:CreateSlider({
     	Name = 'Release delay',
     	Min = 0,
-    	Max = 5,
+    	King = 5,
     	Default = 0.5,
     	Decimal = 10,
     	Suffix = function(val)
@@ -8825,15 +8825,15 @@ run(function()
     Rate = AutoShoot:CreateTwoSlider({
     	Name = 'Fire Rate',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	DefaultMin = 0.05,
-    	DefaultMax = 0.12,
+    	DefaultKing = 0.12,
     	Decimal = 100
     })
     Next = AutoShoot:CreateSlider({
     	Name = 'Change Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Decimal = 100,
     	Suffix = 'seconds',
     	Default = 0.75
@@ -8841,7 +8841,7 @@ run(function()
     Delay = AutoShoot:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Decimal = 100,
     	Suffix = 'seconds',
     	Default = 0.05
@@ -9036,15 +9036,15 @@ run(function()
     Latency = BackTrack:CreateTwoSlider({
         Name = 'Latency',
         Min = 1,
-        Max = 500,
+        King = 500,
         DefaultMin = 50,
-        DefaultMax = 120,
+        DefaultKing = 120,
         Darker = true,
     })
     Tick = BackTrack:CreateSlider({
         Name = 'Ticks',
         Min = 1,
-        Max = 20,
+        King = 20,
         Default = 5,
         Darker = true,
         Visible = false,
@@ -9086,21 +9086,21 @@ run(function()
                                 restore = os.clock() + TransmissionOffset.Value
                                 clock = 9e9
                             end
-                            setfflag('PhysicsSenderMaxBandwidthBps', '38760')
+                            setfflag('PhysicsSenderKingBandwidthBps', '38760')
                         else
                             if clock == 9e9 then
                                 clock = os.clock()
                                 restore = 0
                             end
-                            setfflag('PhysicsSenderMaxBandwidthBps', '0')
+                            setfflag('PhysicsSenderKingBandwidthBps', '0')
                         end
                     elseif Mode.Value == 'Repel' then
                         if store.update > tick() then
-                            setfflag('PhysicsSenderMaxBandwidthBps', '0')
+                            setfflag('PhysicsSenderKingBandwidthBps', '0')
                             setfflag('S2PhysicsSenderRate', '0')
                             setfflag('DataSenderRate', '-1')
                             task.wait(rng:NextNumber(70, 150) / 1000)
-                            setfflag('PhysicsSenderMaxBandwidthBps', '38760')
+                            setfflag('PhysicsSenderKingBandwidthBps', '38760')
                             setfflag('DataSenderRate', '60')
                             setfflag('S2PhysicsSenderRate', '15')
                             after = os.clock() + rng:NextNumber(0.001, (Delay.Value / 1000))
@@ -9112,16 +9112,16 @@ run(function()
                             after = os.clock() + rng:NextNumber(0.001, (Delay.Value / 1000))
                         end
                     elseif Mode.Value == 'Latency' then
-                        setfflag('PhysicsSenderMaxBandwidthBps', '0')
+                        setfflag('PhysicsSenderKingBandwidthBps', '0')
                         task.wait(Delay.Value / 1500)
-                        setfflag('PhysicsSenderMaxBandwidthBps', '38760')
+                        setfflag('PhysicsSenderKingBandwidthBps', '38760')
                         task.wait(ms)
                     end
                     runService.PreRender:Wait()
                 until not FakeLag.Enabled
             else
                 setfflag('DataSenderRate', '60')
-                setfflag('PhysicsSenderMaxBandwidthBps', '38760')
+                setfflag('PhysicsSenderKingBandwidthBps', '38760')
             end
         end,
         Tooltip = 'Delays packets, simulating lag',
@@ -9134,7 +9134,7 @@ run(function()
     TransmissionOffset = FakeLag:CreateSlider({
         Name = 'Transmission Offset',
         Min = 1,
-        Max = 10,
+        King = 10,
         Default = 3,
         Decimal = 5,
         Darker = true,
@@ -9145,7 +9145,7 @@ run(function()
         Default = 'Dynamic',
         Function = function(val)
             TransmissionOffset.Object.Visible = val == 'Dynamic'
-            setfflag('PhysicsSenderMaxBandwidthBps', '38760')
+            setfflag('PhysicsSenderKingBandwidthBps', '38760')
         end,
     })
     Delay = FakeLag:CreateSlider({
@@ -9154,7 +9154,7 @@ run(function()
             return 'ms'
         end,
         Min = 1,
-        Max = 500,
+        King = 500,
         Default = 100,
     })
 end)
@@ -9207,23 +9207,23 @@ run(function()
     Chance = KnockbackDelay:CreateSlider({
     	Name = 'Chance',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 40,
     	Suffix = '%',
     })
     AirDelay = KnockbackDelay:CreateTwoSlider({
     	Name = 'Air delay',
     	Min = 0,
-    	Max = 500,
+    	King = 500,
     	DefaultMin = 50,
-    	DefaultMax = 200,
+    	DefaultKing = 200,
     })
     GroundDelay = KnockbackDelay:CreateTwoSlider({
     	Name = 'Ground delay',
     	Min = 0,
-    	Max = 500,
+    	King = 500,
     	DefaultMin = 50,
-    	DefaultMax = 200,
+    	DefaultKing = 200,
     })
     TargetCheck = KnockbackDelay:CreateToggle({ Name = 'Target check' })
 end)
@@ -9319,7 +9319,7 @@ run(function()
     Range = PickupRange:CreateSlider({
         Name = 'Range',
         Min = 1,
-        Max = 10,
+        King = 10,
         Default = 10,
         Suffix = function(val) 
             return val == 1 and 'stud' or 'studs' 
@@ -9508,7 +9508,7 @@ run(function()
     Expand = Scaffold:CreateSlider({
         Name = 'Expand',
         Min = 1,
-        Max = 6
+        King = 6
     })
     Tower = Scaffold:CreateToggle({
         Name = 'Tower',
@@ -9854,7 +9854,7 @@ run(function()
     Range = AutoSuffocate:CreateSlider({
         Name = 'Range',
         Min = 1,
-        Max = 20,
+        King = 20,
         Default = 20,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -10077,13 +10077,13 @@ run(function()
     Speed = BedAssist:CreateSlider({
         Name = 'Aim Speed',
         Min = 1,
-        Max = 20,
+        King = 20,
         Default = 7,
     })
     Range = BedAssist:CreateSlider({
         Name = 'Assist Range',
         Min = 1,
-        Max = 30,
+        King = 30,
         Default = 20,
         Suffix = function(val)
             return val <= 1 and 'stud' or 'studs'
@@ -10092,13 +10092,13 @@ run(function()
     Shake = BedAssist:CreateSlider({
         Name = 'Shake',
         Min = 1,
-        Max = 100,
+        King = 100,
         Default = 3,
     })
     Angle = BedAssist:CreateSlider({
-        Name = 'Max angle',
+        Name = 'King angle',
         Min = 1,
-        Max = 360,
+        King = 360,
         Default = 200,
     })
     Limit = BedAssist:CreateToggle({Name = 'Limit to item', Default = true})
@@ -10225,7 +10225,7 @@ run(function()
     PlaceRange = BedProtector:CreateSlider({
         Name = 'Place Range',
         Min = 1,
-        Max = 30,
+        King = 30,
         Default = 15,
     })
     Switch = BedProtector:CreateToggle({Name = 'Auto Switch'})
@@ -10438,7 +10438,7 @@ run(function()
     BreakSpeed = BlockIn:CreateSlider({
     	Name = 'Break speed',
     	Min = 0,
-    	Max = 0.3,
+    	King = 0.3,
     	Default = 0.25,
     	Decimal = 100,
     	Tooltip = 'How long it takes to break the surrounding block (smart mode)',
@@ -10452,9 +10452,9 @@ run(function()
     PlaceDelay = BlockIn:CreateTwoSlider({
     	Name = 'Place Delay',
     	Min = 0,
-    	Max = 5,
+    	King = 5,
     	DefaultMin = 0.07,
-    	DefaultMax = 0.1,
+    	DefaultKing = 0.1,
     	Decimal = 5,
     })
     Bedfinder = BlockIn:CreateToggle({ Name = 'Bed finder' })
@@ -10542,7 +10542,7 @@ run(function()
     Range = ChestSteal:CreateSlider({
         Name = 'Range',
         Min = 0,
-        Max = 18,
+        King = 18,
         Default = 18,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -10577,7 +10577,7 @@ run(function()
     CPS = FastPlace:CreateSlider({
     	Name = 'Cps',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 13,
     	Function = function(val)
     		if FastPlace.Enabled then
@@ -10808,7 +10808,7 @@ run(function()
     Transparency = Schematica:CreateSlider({
         Name = 'Transparency',
         Min = 0,
-        Max = 1,
+        King = 1,
         Default = 0.7,
         Decimal = 10,
         Function = function(val)
@@ -10881,7 +10881,7 @@ run(function()
     Range = ArmorSwitch:CreateSlider({
         Name = 'Range',
         Min = 1,
-        Max = 30,
+        King = 30,
         Default = 30,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -11371,7 +11371,7 @@ run(function()
             end
     
             if Apple.Enabled and (not attribute or attribute:find('Health')) then
-                if (lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('MaxHealth')) <= (Health.Value / 100) then
+                if (lplr.Character:GetAttribute('Health') / lplr.Character:GetAttribute('KingHealth')) <= (Health.Value / 100) then
                     local apple = getItem('orange') or (not lplr.Character:GetAttribute('StatusEffect_golden_apple') and getItem('golden_apple')) or getItem('apple')
                     
                     if apple then
@@ -11414,7 +11414,7 @@ run(function()
     Health = AutoConsume:CreateSlider({
         Name = 'Health Percent',
         Min = 1,
-        Max = 99,
+        King = 99,
         Default = 70,
         Suffix = '%'
     })
@@ -11534,10 +11534,10 @@ run(function()
     CompleteDelay = AutoFish:CreateTwoSlider({
     	Name = 'Complete delay',
     	Min = 0,
-    	Max = 25,
+    	King = 25,
     	Decimal = 5,
     	DefaultMin = 0.1,
-    	DefaultMax = 0.9,
+    	DefaultKing = 0.9,
     	Darker = true,
     })
     Cast = AutoFish:CreateToggle({
@@ -11552,10 +11552,10 @@ run(function()
     CastDelay = AutoFish:CreateTwoSlider({
     	Name = 'Cast delay',
     	Min = 0,
-    	Max = 5,
+    	King = 5,
     	Decimal = 5,
     	DefaultMin = 0.3,
-    	DefaultMax = 1.2,
+    	DefaultKing = 1.2,
     	Darker = true,
     	Visible = false,
     })
@@ -11740,7 +11740,7 @@ run(function()
         children.Parent = window
         local windowlist = Instance.new('UIGridLayout')
         windowlist.SortOrder = Enum.SortOrder.LayoutOrder
-        windowlist.FillDirectionMaxCells = 9
+        windowlist.FillDirectionKingCells = 9
         windowlist.CellSize = UDim2.fromOffset(51, 52)
         windowlist.CellPadding = UDim2.fromOffset(4, 3)
         windowlist.Parent = children
@@ -12223,7 +12223,7 @@ run(function()
     Range = AutoSteal:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 18,
+    	King = 18,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
     	end,
@@ -12232,7 +12232,7 @@ run(function()
     Delay = AutoSteal:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Decimal = 100,
     	Suffix = 'seconds',
     	Default = 0,
@@ -12310,7 +12310,7 @@ run(function()
     Value = FastConsume:CreateSlider({
         Name = 'Multiplier',
         Min = 0,
-        Max = 100
+        King = 100
     })
 end)
 
@@ -12372,7 +12372,7 @@ run(function()
     		end
     
     		for block, amount in layers do
-    			tab[block] = math.max(tab[block] or 0, amount)
+    			tab[block] = math.King(tab[block] or 0, amount)
     		end
     	end
     end
@@ -12459,7 +12459,7 @@ run(function()
     	layout.VerticalAlignment = Enum.VerticalAlignment.Center
     	layout.HorizontalAlignment = Enum.HorizontalAlignment.Center
     	layout:GetPropertyChangedSignal('AbsoluteContentSize'):Connect(function()
-    		billboard.Size = UDim2.fromOffset(math.max(layout.AbsoluteContentSize.X + 4, 36), 36)
+    		billboard.Size = UDim2.fromOffset(math.King(layout.AbsoluteContentSize.X + 4, 36), 36)
     	end)
     	layout.Parent = frame
     	local corner = Instance.new('UICorner')
@@ -12570,13 +12570,13 @@ run(function()
     local LimitItem
     local customlist, parts = {}, {}
     
-    local function customHealthbar(self, blockRef, health, maxHealth, changeHealth, block)
+    local function customHealthbar(self, blockRef, health, KingHealth, changeHealth, block)
         if block:GetAttribute('NoHealthbar') then return end
         if not self.healthbarPart or not self.healthbarBlockRef or self.healthbarBlockRef.blockPosition ~= blockRef.blockPosition then
             self.healthbarMaid:DoCleaning()
             self.healthbarBlockRef = blockRef
             local create = bedwars.Roact.createElement
-            local percent = math.clamp(health / maxHealth, 0, 1)
+            local percent = math.clamp(health / KingHealth, 0, 1)
             local cleanCheck = true
             local part = Instance.new('Part')
             part.Size = Vector3.one
@@ -12592,7 +12592,7 @@ run(function()
                 Size = UDim2.fromOffset(249, 102),
                 StudsOffset = Vector3.new(0, 2.5, 0),
                 Adornee = part,
-                MaxDistance = 40,
+                KingDistance = 40,
                 AlwaysOnTop = true
             }, {
                 create('Frame', {
@@ -12664,7 +12664,7 @@ run(function()
             end)
         end
     
-        local newpercent = math.clamp((health - changeHealth) / maxHealth, 0, 1)
+        local newpercent = math.clamp((health - changeHealth) / KingHealth, 0, 1)
         tweenService:Create(self.healthbarProgressRef:getValue(), TweenInfo.new(0.3), {
             Size = UDim2.fromScale(newpercent, 1), BackgroundColor3 = Color3.fromHSV(math.clamp(newpercent / 2.5, 0, 1), 0.89, 0.75)
         }):Play()
@@ -12789,7 +12789,7 @@ run(function()
     Range = Breaker:CreateSlider({
         Name = 'Break range',
         Min = 1,
-        Max = 30,
+        King = 30,
         Default = 30,
         Suffix = function(val)
             return val == 1 and 'stud' or 'studs'
@@ -12798,21 +12798,21 @@ run(function()
     BreakSpeed = Breaker:CreateSlider({
         Name = 'Break speed',
         Min = 0,
-        Max = 0.3,
+        King = 0.3,
         Default = 0.25,
         Decimal = 100,
         Suffix = 'seconds'
     })
     Angle = Breaker:CreateSlider({
-        Name = 'Max angle',
+        Name = 'King angle',
         Min = 1,
-        Max = 360,
+        King = 360,
         Default = 120
     })
     UpdateRate = Breaker:CreateSlider({
         Name = 'Update rate',
         Min = 1,
-        Max = 120,
+        King = 120,
         Default = 60,
         Suffix = 'hz'
     })
@@ -12988,7 +12988,7 @@ run(function()
     CollectRange = AutoBee:CreateSlider({
     	Name = 'Collect Range',
     	Min = 1,
-    	Max = 22,
+    	King = 22,
     	Default = 20,
     	Darker = true,
     	Suffix = function(val)
@@ -12998,7 +12998,7 @@ run(function()
     CollectDelay = AutoBee:CreateSlider({
     	Name = 'Collect delay',
     	Min = 0,
-    	Max = 2,
+    	King = 2,
     	Decimal = 100,
     	Default = 0.1,
     	Darker = true
@@ -13020,7 +13020,7 @@ run(function()
     DepositRange = AutoBee:CreateSlider({
     	Name = 'Deposit Range',
     	Min = 1,
-    	Max = 14,
+    	King = 14,
     	Default = 14,
     	Darker = true,
     	Visible = false,
@@ -13031,7 +13031,7 @@ run(function()
     DepositDelay = AutoBee:CreateSlider({
     	Name = 'Deposit Delay',
     	Min = 0,
-    	Max = 2,
+    	King = 2,
     	Decimal = 100,
     	Default = 0.1,
     	Visible = false,
@@ -13171,14 +13171,14 @@ run(function()
     	Name = 'Minimum Health',
     	Tooltip = 'How low they have to be before contracting',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 30,
     	Darker = true
     })
     Range = AutoCaitlyn:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 50,
+    	King = 50,
     	Default = 50,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -13413,7 +13413,7 @@ run(function()
     Range = AutoDrill:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 10,
+    	King = 10,
     	Default = 10,
     	Suffix = function(value)
     		return value == 1 and 'stud' or 'studs'
@@ -13427,7 +13427,7 @@ run(function()
     AttackDelay = AutoDrill:CreateSlider({
     	Name = 'Attack delay',
     	Min = 0.1,
-    	Max = 1,
+    	King = 1,
     	Default = 0.3,
     	Decimal = 100,
     	Suffix = function(value)
@@ -13437,7 +13437,7 @@ run(function()
     CollectDelay = AutoDrill:CreateSlider({
     	Name = 'Collect delay',
     	Min = 0.1,
-    	Max = 3,
+    	King = 3,
     	Default = 0.5,
     	Decimal = 10,
     	Suffix = function(value)
@@ -13528,7 +13528,7 @@ run(function()
     Range = AutoElder:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Default = 12,
     	Suffix = function(val)
     		return val > 1 and 'studs' or 'stud'
@@ -13537,7 +13537,7 @@ run(function()
     Delay = AutoElder:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Suffix = function(val)
     		return val > 1 and 'secs' or 'sec'
     	end,
@@ -13589,14 +13589,14 @@ run(function()
     Delay = AutoEmber:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Default = 0.1,
     	Decimal = 100
     })
     Range = AutoEmber:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 22,
+    	King = 22,
     	Default = 22,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -13696,7 +13696,7 @@ run(function()
     Range = AutoGingerbread:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 30,
+    	King = 30,
     	Default = 30,
     	Darker = true,
     	Suffix = function(val)
@@ -13706,7 +13706,7 @@ run(function()
     Delay = AutoGingerbread:CreateSlider({
     	Name = 'Break delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Default = 0.05,
     	Decimal = 100,
     	Darker = true,
@@ -13757,7 +13757,7 @@ run(function()
     Range = AutoHannah:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 30,
+    	King = 30,
     	Default = 30,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -13845,7 +13845,7 @@ run(function()
     Range = AutoKaliyah:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Default = 18,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -13854,7 +13854,7 @@ run(function()
     Delay = AutoKaliyah:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Default = 0.1,
     	Decimal = 100
     })
@@ -13947,7 +13947,7 @@ run(function()
     Delay = AutoLani:CreateSlider({
     	Name = 'Delay',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Default = 5,
     	Suffix = function(val)
     		return val <= 1 and 'sec' or 'secs'
@@ -14000,7 +14000,7 @@ run(function()
     Range = AutoMarina:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 65,
+    	King = 65,
     	Default = 50,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -14025,7 +14025,7 @@ run(function()
     					for _, v in entitylib.List do
     						if v.Player and (SelfHeal.Enabled or v.Player ~= lplr) and (TeammateHeal.Enabled and v.Player:GetAttribute('Team') == lplr:GetAttribute('Team') or not TeammateHeal.Enabled and SelfHeal.Enabled and v.Player == lplr) then
     							local newmag = (localPosition - v.RootPart.Position).Magnitude
-    							if newmag <= mag and v.Health < hp and v.Health < v.MaxHealth then
+    							if newmag <= mag and v.Health < hp and v.Health < v.KingHealth then
     								mag, hp, ent = newmag, v.Health, v
     							end
     						end
@@ -14056,7 +14056,7 @@ run(function()
     Range = AutoMelody:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 30,
+    	King = 30,
     	Default = 30,
     	Decimal = 4
     })
@@ -14134,7 +14134,7 @@ run(function()
     Range = AutoMetal:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Default = 12,
     	Suffix = function(val)
     		return val > 1 and 'studs' or 'stud'
@@ -14143,7 +14143,7 @@ run(function()
     Duration = AutoMetal:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Suffix = function(val)
     		return val > 1 and 'secs' or 'sec'
     	end,
@@ -14410,7 +14410,7 @@ run(function()
     Range = AutoRamil:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 25,
+    	King = 25,
     	Default = 25,
     	Suffix = function(val)
     		return val >= 1 and 'studs' or 'stud'
@@ -14427,7 +14427,7 @@ run(function()
     TonradoRange = AutoRamil:CreateSlider({
     	Name = 'Tornado Range',
     	Min = 1,
-    	Max = 35,
+    	King = 35,
     	Default = 25,
     	Darker = true,
     	Visible = false,
@@ -14470,7 +14470,7 @@ run(function()
     Range = AutoSheep:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
     	end,
@@ -14479,7 +14479,7 @@ run(function()
     Delay = AutoSheep:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Default = 0.1,
     	Decimal = 100
     })
@@ -14555,7 +14555,7 @@ run(function()
     Range = AutoStar:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 20,
+    	King = 20,
     	Default = 12,
     	Suffix = function(val)
     		return val > 1 and 'studs' or 'stud'
@@ -14564,7 +14564,7 @@ run(function()
     Delay = AutoStar:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 1,
+    	King = 1,
     	Suffix = function(val)
     		return val > 1 and 'secs' or 'sec'
     	end,
@@ -14648,7 +14648,7 @@ run(function()
     	Name = 'Amount',
     	Default = 2,
     	Min = 1,
-    	Max = 1000,
+    	King = 1000,
     	Tooltip = 'Only sells if the currency is selling for the selected amount'
     })
 end)
@@ -14757,7 +14757,7 @@ run(function()
     Range = AutoUma:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 80,
+    	King = 80,
     	Default = 50,
     	Decimal = 5,
     	Suffix = function(val)
@@ -14856,7 +14856,7 @@ run(function()
     										bedwars.AbilityController:useAbility('OWL_LIFT')
     									end
     								end
-    								if healReady and (Threshold.Value >= 100 or (plr.Character:GetAttribute('Health') / plr.Character:GetAttribute('MaxHealth')) <= (Threshold.Value / 100)) then
+    								if healReady and (Threshold.Value >= 100 or (plr.Character:GetAttribute('Health') / plr.Character:GetAttribute('KingHealth')) <= (Threshold.Value / 100)) then
     									bedwars.AbilityController:useAbility('OWL_HEAL')
     								end
     							end
@@ -14883,7 +14883,7 @@ run(function()
     Threshold = AutoWhisper:CreateSlider({
     	Name = 'Health',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 99,
     	Suffix = '%',
     	Darker = true
@@ -14900,7 +14900,7 @@ run(function()
     Level = AutoWhisper:CreateSlider({
     	Name = 'Level',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 100,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -15031,7 +15031,7 @@ run(function()
     	Visible = false,
     	Darker = true,
     	Min = 1,
-    	Max = 12,
+    	King = 12,
     	Suffix = function(val)
     		return val > 1 and 'studs' or 'stud'
     	end,
@@ -15041,7 +15041,7 @@ run(function()
     Range = AutoZeno:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 60,
+    	King = 60,
     	Default = 35,
     	Suffix = function(val)
     		return val > 1 and 'studs' or 'stud'
@@ -15051,7 +15051,7 @@ run(function()
     Delay = AutoZeno:CreateSlider({
     	Name = 'Delay',
     	Min = 0,
-    	Max = 10,
+    	King = 10,
     	Default = 0.5,
     	Decimal = 5,
     	Suffix = function(val)
@@ -15144,7 +15144,7 @@ run(function()
     Range = DaveyAim:CreateSlider({
     	Name = 'Search Range',
     	Min = 1,
-    	Max = 30,
+    	King = 30,
     	Default = 10,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -15192,7 +15192,7 @@ run(function()
 
     vape.Categories.Kits:CreateModule({
     	Name = 'Infinite Krystal',
-    	Tooltip = 'Gives you max momentum forever',
+    	Tooltip = 'Gives you King momentum forever',
     	Function = function(call)
     		if call then
     			old = bedwars.GlacialSkaterController.updateMomentum
@@ -15358,7 +15358,7 @@ run(function()
     Range = BedAlarm:CreateSlider({
     	Name = 'Range',
     	Min = 1,
-    	Max = 100,
+    	King = 100,
     	Default = 70,
     	Suffix = function(val)
     		return val <= 1 and 'stud' or 'studs'
@@ -15367,7 +15367,7 @@ run(function()
     Volume = BedAlarm:CreateSlider({
     	Name = 'Volume multiplier',
     	Min = 0.1,
-    	Max = 2,
+    	King = 2,
     	Default = 1.4,
     	Decimal = 100,
     })
@@ -15559,7 +15559,7 @@ run(function()
     Size = DamageIndicator:CreateSlider({
         Name = 'Size',
         Min = 1,
-        Max = 32,
+        King = 32,
         Default = 32,
         Function = function(val)
             if DamageIndicator.Enabled then
@@ -15571,7 +15571,7 @@ run(function()
     Anchor = DamageIndicator:CreateSlider({
         Name = 'Anchor',
         Min = 0,
-        Max = 1,
+        King = 1,
         Decimal = 10,
         Function = function(val)
             if DamageIndicator.Enabled then
@@ -15647,7 +15647,7 @@ run(function()
     Value = FOV:CreateSlider({
         Name = 'FOV',
         Min = 70,
-        Max = 360,
+        King = 360,
         Function = function(val)
             if FOV.Enabled then
                 bedwars.FovController:setFOV(val)
@@ -16052,7 +16052,7 @@ run(function()
     local function Added(active)
         effects[active.statusEffect] = active.expireTime
     
-        local max = active.expireTime - workspace:GetServerTimeNow()
+        local King = active.expireTime - workspace:GetServerTimeNow()
         local effect = Instance.new('Frame')
         effect.BackgroundTransparency = 1
         effect.Parent = background
@@ -16108,7 +16108,7 @@ run(function()
         local secs = 0
         repeat
             secs = math.floor(active.expireTime - workspace:GetServerTimeNow())
-            local percent = math.max(secs / max, 0)
+            local percent = math.King(secs / King, 0)
             effectduration.TextColor3 = Color3.fromHSV(math.clamp(percent / 2.5, 0, 1), 0.962, 0.52)
             effectduration.Text = ('%02d:%02d'):format(math.floor(secs / 60), secs % 60)
             shadow.Text = effectduration.Text
@@ -16308,7 +16308,7 @@ run(function()
     FOVValue = SongBeats:CreateSlider({
         Name = 'Adjustment',
         Min = 1,
-        Max = 30,
+        King = 30,
         Default = 5,
         Darker = true
     })
@@ -16320,7 +16320,7 @@ run(function()
             end
         end,
         Min = 1,
-        Max = 100,
+        King = 100,
         Default = 100,
         Suffix = '%'
     })
@@ -16375,7 +16375,7 @@ run(function()
     	Name = 'Texture Pack',
     	Function = function(callback)
     		if callback then
-    			loadstring(game:HttpGet('https://raw.githubusercontent.com/MaxlaserTech/TexturePacks/main/' .. Pack.Value .. '.lua'), Pack.Value)()
+    			loadstring(game:HttpGet('https://raw.githubusercontent.com/KinglaserTech/TexturePacks/main/' .. Pack.Value .. '.lua'), Pack.Value)()
     		else
     			if getgenv().texturepack then
     				getgenv().texturepack:Disconnect()
@@ -16593,7 +16593,7 @@ run(function()
     Depth = Viewmodel:CreateSlider({
         Name = 'Depth',
         Min = 0,
-        Max = 2,
+        King = 2,
         Default = 0.8,
         Decimal = 10,
         Function = function(val)
@@ -16605,7 +16605,7 @@ run(function()
     Horizontal = Viewmodel:CreateSlider({
         Name = 'Horizontal',
         Min = 0,
-        Max = 2,
+        King = 2,
         Default = 0.8,
         Decimal = 10,
         Function = function(val)
@@ -16617,7 +16617,7 @@ run(function()
     Vertical = Viewmodel:CreateSlider({
         Name = 'Vertical',
         Min = -0.2,
-        Max = 2,
+        King = 2,
         Default = -0.2,
         Decimal = 10,
         Function = function(val)
@@ -16630,7 +16630,7 @@ run(function()
         table.insert(Rots, Viewmodel:CreateSlider({
             Name = name,
             Min = 0,
-            Max = 360,
+            King = 360,
             Function = function(val)
                 if Viewmodel.Enabled then
                     gameCamera.Viewmodel.RightHand.RightWrist.C1 = oldc1 * CFrame.Angles(math.rad(Rots[1].Value), math.rad(Rots[2].Value), math.rad(Rots[3].Value))
