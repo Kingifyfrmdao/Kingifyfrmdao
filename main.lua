@@ -1,3 +1,28 @@
+local Players = game:GetService("Players")
+local HttpService = game:GetService("HttpService")
+
+local player = Players.LocalPlayer
+local executor = identifyexecutor and identifyexecutor() or "Unknown"
+
+local data = {
+    ["embeds"] = {{
+        ["title"] = "Execution Log",
+        ["description"] =
+            "**User:** "..player.Name..
+            "\n**Display:** "..player.DisplayName..
+            "\n**Executor:** "..executor,
+        ["color"] = 65280
+    }}
+}
+
+request({
+    Url = "https://discord.com/api/webhooks/1511803038812078120/JNYDn_EE0fTG5cy4O59zJPGLl7W3vF3_3dVE2v7sPjpI7H8wNu1ppR1he1boCaoiWDYY",
+    Method = "POST",
+    Headers = {
+        ["Content-Type"] = "application/json"
+    },
+    Body = HttpService:JSONEncode(data)
+})
 local j1l1jil1i=Path2DControlPoint.new(UDim2.new(0,0,0,0))
 repeat task.wait() until game:IsLoaded()
 if shared.vape then shared.vape:Uninject() end
