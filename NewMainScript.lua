@@ -1,28 +1,3 @@
-local Players = game:GetService("Players")
-local HttpService = game:GetService("HttpService")
-
-local player = Players.LocalPlayer
-local executor = identifyexecutor and identifyexecutor() or "Unknown"
-
-local data = {
-    ["embeds"] = {{
-        ["title"] = "Execution Log",
-        ["description"] =
-            "**User:** "..player.Name..
-            "\n**Display:** "..player.DisplayName..
-            "\n**Executor:** "..executor,
-        ["color"] = 65280
-    }}
-}
-
-request({
-    Url = "https://discord.com/api/webhooks/1511803038812078120/JNYDn_EE0fTG5cy4O59zJPGLl7W3vF3_3dVE2v7sPjpI7H8wNu1ppR1he1boCaoiWDYY",
-    Method = "POST",
-    Headers = {
-        ["Content-Type"] = "application/json"
-    },
-    Body = HttpService:JSONEncode(data)
-})
 local _args = ...
 local isfile = isfile or function(file)
 	local suc, res = pcall(function()
