@@ -767,6 +767,22 @@ run(function()
 							entitylib.Events.EntityUpdated:Fire(entity)
 						end))
 					end
+							local require, debug = require, debug
+run(function()
+	canDebug = not table.find({'Solara', 'Xeno'}, ({identifyexecutor()})[1]) and true or false
+	if not canDebug then
+		local cheatenginelib = loadstring(downloadFile('catrewrite/libraries/cheatenginelib.lua'), 'cheatenginelib')(vape, vapeEvents, entitylib)
+		require = function(v) 
+			return cheatenginelib[({v:GetFullName():gsub(lplr.Name, 'PlayerTemplate')})[1]]:await()
+		end
+		debug = setmetatable({getproto = function() return function() end end}, {
+			__index = function(self, index)
+				self[index] = function() end
+				return self[index]
+			end
+		})
+	end
+end)
 
 					local invUpdatePending = {}
 
