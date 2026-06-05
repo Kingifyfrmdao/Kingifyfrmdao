@@ -13,7 +13,7 @@ elseif getgenv().Closet == nil then
 	getgenv().Closet = false
 end
 
-getgenv().isSkidPaid = true
+getgenv().isKingV4Paid = true
 
 local _realLoadstring = clonefunction(loadstring)
 local vape
