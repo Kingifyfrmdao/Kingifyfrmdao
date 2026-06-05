@@ -33514,7 +33514,7 @@ run(function()
 				playerData = {}
 			end
 		end,
-		Tooltip = 'script made by Kolifyz'
+		Tooltip = 'script made by King'
 	})
 
 	ChopModifier = AnimChopper:CreateSlider({
