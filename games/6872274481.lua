@@ -5357,7 +5357,7 @@ run(function()
         fastHitsLastHitTime = 0
     end
 
-    local attacked = {}
+   local attacked = {}
     local hadTargetsLastTick = false
     Killaura = vape.Categories.Blatant:CreateModule({
         Name = 'Killaura',
