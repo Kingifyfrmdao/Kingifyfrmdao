@@ -1,6 +1,47 @@
 --This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
---This watermark is used to delete the file if its cached, remove it to make the file persist after vape updates.
 
+pcall(function()
+	local l = Instance.new("ScreenGui")
+	l.Name = "VapeLoading"
+	l.ResetOnSpawn = false
+	l.ZIndexBehavior = Enum.ZIndexBehavior.Sibling
+	local f = Instance.new("Frame")
+	f.Size = UDim2.new(1, 0, 1, 0)
+	f.BackgroundColor3 = Color3.fromRGB(15, 15, 15)
+	f.BackgroundTransparency = 1
+	local t = Instance.new("TextLabel")
+	t.Size = UDim2.new(1, 0, 0, 50)
+	t.Position = UDim2.new(0, 0, 0.5, -25)
+	t.BackgroundTransparency = 1
+	t.Text = "Loading Fuzzynuts..."
+	t.TextColor3 = Color3.fromRGB(200, 200, 200)
+	t.TextScaled = true
+	t.Font = Enum.Font.SourceSansBold
+	t.Parent = f
+	local p = Instance.new("Frame")
+	p.Size = UDim2.new(0.5, 0, 0, 6)
+	p.Position = UDim2.new(0.25, 0, 0.5, 30)
+	p.BackgroundColor3 = Color3.fromRGB(40, 40, 40)
+	p.BorderSizePixel = 0
+	local bar = Instance.new("Frame")
+	bar.Size = UDim2.new(0, 0, 1, 0)
+	bar.BackgroundColor3 = Color3.fromRGB(100, 200, 255)
+	bar.BorderSizePixel = 0
+	bar.Name = "Bar"
+	bar.Parent = p
+	p.Parent = f
+	f.Parent = l
+	l.Parent = game:GetService("CoreGui")
+	local dir = 1
+	task.spawn(function()
+		while l.Parent do
+			task.wait(0.02)
+			local s = bar.Size.X.Offset + dir * 3
+			if s > p.AbsoluteSize.X then dir = -1; s = p.AbsoluteSize.X end
+			if s < 0 then dir = 1; s = 0 end
+			bar.Size = UDim2.new(0, s, 1, 0)
+		end
+	end)
 	run = function(func)
 		local ok, err = xpcall(func, debug.traceback)
 		if not ok then
