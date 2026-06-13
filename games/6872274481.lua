@@ -4436,7 +4436,7 @@ run(function()
     end
 
     HitBoxes = vape.Categories.Blatant:CreateModule({
-        Name = 'HitBoxesV2',
+        Name = 'Better HitBoxes',
         Function = function(callback)
             if callback then
                 updateExpandSize(Expand.Value)
