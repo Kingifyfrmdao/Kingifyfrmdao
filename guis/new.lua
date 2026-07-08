@@ -4773,7 +4773,7 @@ function mainapi:CreateGUI()
 
 		task.spawn(function()
 			tooltip.Text = 'Copied!'
-			setclipboard('https://discord.gg/TwDYYAMY4p')
+			setclipboard('https://discord.gg/5gJqhQmrdS')
 		end)
 	end)
 	settingsbutton.MouseEnter:Connect(function()
@@ -7205,7 +7205,7 @@ local scarcitybanner = Instance.new('TextLabel')
 scarcitybanner.Size = UDim2.fromScale(1, 0.02)
 scarcitybanner.Position = UDim2.fromScale(0, 0.97)
 scarcitybanner.BackgroundTransparency = 1
-scarcitybanner.Text = 'Join KingV4 server to report any bugs, suggestions or buy prem, click discord icon :D'
+scarcitybanner.Text = 'Join SkidV7 server to report any bugs, suggestions or buy prem, click discord icon :D'
 scarcitybanner.TextScaled = true
 scarcitybanner.TextColor3 = Color3.new(1, 1, 1)
 scarcitybanner.TextStrokeTransparency = 0.5
