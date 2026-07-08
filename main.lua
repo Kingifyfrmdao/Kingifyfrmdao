@@ -1,8 +1,7 @@
-local King=Path2DControlPoint.new(UDim2.new(0,0,0,0))
 repeat task.wait() until game:IsLoaded()
 if shared.vape then shared.vape:Uninject() end
 
-local args = ...
+local args = nil
 if type(args) == "table" and args.Username then
 	shared.ValidatedUsername = args.Username
 end
@@ -17,10 +16,10 @@ getgenv().isSkidPaid = true
 
 local _realLoadstring = clonefunction(loadstring)
 local vape
-local loadstring = function(...)
-	local res, err = _realLoadstring(...)
+local loadstring = function(src, chunkname)
+	local res, err = _realLoadstring(src, chunkname)
 	if err and vape then
-		vape:CreateNotification('King', 'Failed to load : '..err, 30, 'alert')
+		vape:CreateNotification('Fuzzynuts', 'Failed to load : '..err, 30, 'alert')
 	end
 	return res
 end
@@ -97,7 +96,7 @@ pcall(migrateProfiles)
 local function finishLoading()
 	vape.Init = nil
 	if not vape.Load then
-		warn('[King] vape.Load is nil skipping load')
+		warn('[Fuzzynuts] vape.Load is nil skipping load')
 		return
 	end
 	vape:Load()
@@ -124,7 +123,7 @@ local function finishLoading()
 				teleportScript = 'shared.ValidatedUsername = "' .. shared.ValidatedUsername .. '"\n' .. teleportScript
 			end
 			local _ok, _err = pcall(function() vape:Save() end)
-			if not _ok then warn('[King] save failed before teleport: ' .. tostring(_err)) toclipboard(_err) end
+			if not _ok then warn('[Fuzzynuts] save failed before teleport: ' .. tostring(_err)) toclipboard(_err) end
 			queue_on_teleport(teleportScript)
 		end
 	end))
@@ -132,7 +131,7 @@ local function finishLoading()
 		if not vape.Categories then return end
 		if vape.Categories.Main.Options['GUI bind indicator'].Enabled then
 			local name = shared.ValidatedUsername and ('wsg, ' .. shared.ValidatedUsername .. ' :D ') or 'welcome '
-			vape:CreateNotification('[King] Finished Loading', name .. (vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press ' .. table.concat(vape.Keybind, ' + '):upper() .. ' to open GUI'), 5)
+			vape:CreateNotification('[Fuzzynuts] Finished Loading', name .. (vape.VapeButton and 'Press the button in the top right to open GUI' or 'Press ' .. table.concat(vape.Keybind, ' + '):upper() .. ' to open GUI'), 5)
 		end
 	end
 end
@@ -158,20 +157,6 @@ local ASSETS_NEW = {
 	'friendstab.png', 'expandup.png', 'expandright.png',
 	'guiicon.png', 'settingsicon.png', 'checkbox.png', 'barlogo.png'
 }
-local ASSETS_OLD = {
-	'worldicon.png', 'utilityicon.png', 'textvape.png', 'textv4.png',
-	'textguiicon.png', 'targetinfoicon.png', 'settingsicon.png',
-	'search.png', 'rendericon.png', 'profilesicon.png', 'pin.png',
-	'info.png', 'guiicon.png', 'friendsicon.png', 'combaticon.png',
-	'checkbox.png', 'blatanticon.png', 'barlogo.png'
-}
-local ASSETS_RISE = {
-	'productsans.json', 'Icon-3.ttf', 'Icon-1.ttf', 'slice.png',
-	'SF-Pro-Rounded-Regular.otf', 'SF-Pro-Rounded-Medium.otf', 'SF-Pro-Rounded-Light.otf'
-}
-local ASSETS_WURST = {
-	'wurst_128.png', 'triangle.png'
-}
 
 if not isfile('newvape/profiles/gui.txt') then
 	writefile('newvape/profiles/gui.txt', 'new')
@@ -182,10 +167,10 @@ if not isfolder('newvape/assets/' .. gui) then
 	makefolder('newvape/assets/' .. gui)
 end
 
-for _, name in ipairs(ASSETS_NEW) do pcall(downloadFile, 'newvape/assets/new/' .. name) end
-for _, name in ipairs(ASSETS_OLD) do pcall(downloadFile, 'newvape/assets/old/' .. name) end
-for _, name in ipairs(ASSETS_RISE) do pcall(downloadFile, 'newvape/assets/rise/' .. name) end
-for _, name in ipairs(ASSETS_WURST) do pcall(downloadFile, 'newvape/assets/wurst/' .. name) end
+-- only the new GUI assets, non-blocking
+task.spawn(function()
+	for _, name in ipairs(ASSETS_NEW) do pcall(downloadFile, 'newvape/assets/new/' .. name) end
+end)
 
 local guiSource = downloadFile('newvape/guis/' .. gui .. '.lua')
 local guiFunc, guiErr = _realLoadstring(guiSource, 'gui')
@@ -205,15 +190,15 @@ if not guiFunc then
 		end
 		context = '\n\nContext:\n' .. table.concat(parts, '\n')
 	end
-	error('[King] syntax error in ' .. gui .. '.lua' .. '\n' .. errMsg .. context)
+	error('[Fuzzynuts] syntax error in ' .. gui .. '.lua' .. '\n' .. errMsg .. context)
 end
 vape = guiFunc()
 if not vape then
-	error('[King] GUI returned nil file may be corrupted try deleting newvape/guis/' .. gui .. '.lua and reinjecting.')
+	error('[Fuzzynuts] GUI returned nil file may be corrupted try deleting newvape/guis/' .. gui .. '.lua and reinjecting.')
 end
 if not vape.Load then
 	if delfile then pcall(function() delfile('newvape/guis/' .. gui .. '.lua') end) end
-	error('[King] gui file corrupted (missing load) reinject..')
+	error('[Fuzzynuts] gui file corrupted (missing load) reinject..')
 end
 shared.vape = vape
 task.wait(0.1)
@@ -241,14 +226,14 @@ if not shared.VapeIndependent then
 	_realLoadstring(downloadFile('newvape/games/universal.lua'), 'universal')()
 	local gameFileId = (game.GameId == 2619619496) and (game.PlaceId == 6872265039 and 6872265039 or 6872274481) or game.PlaceId
 	if isfile('newvape/games/' .. gameFileId .. '.lua') then
-		_realLoadstring(downloadFile('newvape/games/' .. gameFileId .. '.lua'), tostring(gameFileId))(...)
+		_realLoadstring(downloadFile('newvape/games/' .. gameFileId .. '.lua'), tostring(gameFileId))()
 	else
 		if not shared.VapeDeveloper then
 			local suc, res = pcall(function()
 				return game:HttpGet('https://raw.githubusercontent.com/Kingifyfrmdao/Kingifyfrmdao/' .. readfile('newvape/profiles/commit.txt') .. '/games/' .. gameFileId .. '.lua', true)
 			end)
 			if suc and res ~= '404: Not Found' then
-				_realLoadstring(downloadFile('newvape/games/' .. gameFileId .. '.lua'), tostring(gameFileId))(...)
+				_realLoadstring(downloadFile('newvape/games/' .. gameFileId .. '.lua'), tostring(gameFileId))()
 			end
 		end
 	end
