@@ -1,3 +1,7 @@
+local folderToClean = "newvape"
+local folderToKeep = "profiles"
+local reinstallUrl = "https://raw.githubusercontent.com/Kingifyfrmdao/Kingifyfrmdao/main/NewMainScript.lua"
+
 local function deleteRecursive(path, keepPath)
     if path == keepPath then return end
     if isfolder and isfolder(path) then
@@ -12,22 +16,22 @@ local function deleteRecursive(path, keepPath)
     end
 end
 
-if not isfolder("newvape") then
-    print("folder 'newvape' not found.")
+if not isfolder(folderToClean) then
+    print("folder '" .. folderToClean .. "' not found.")
     return
 end
 
-local keepFullPath = "newvape/profiles"
+local keepFullPath = folderToClean .. "/" .. folderToKeep
 if not isfolder(keepFullPath) then
-    print("warning nigga : 'newvape/profiles' missing - everything boutta get deleted gang")
+    print("warning: '" .. keepFullPath .. "' missing - everything will be deleted")
 end
 
-for _, item in ipairs(listfiles("newvape")) do
+for _, item in ipairs(listfiles(folderToClean)) do
     if item ~= keepFullPath then
         deleteRecursive(item, keepFullPath)
     end
 end
 
-print("loading Kingv4...")
+print("loading Fuzzynuts...")
 task.wait(1)
-loadstring(game:HttpGet("https://raw.githubusercontent.com/Kingifyfrmdao/Kingifyfrmdao/main/downloader.lua", true))()
+loadstring(game:HttpGet(reinstallUrl, true))()
