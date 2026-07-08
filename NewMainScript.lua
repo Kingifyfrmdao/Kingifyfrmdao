@@ -1,5 +1,4 @@
-local _ARGS = {...}
-local _args = _ARGS[1]
+local _args = ...
 local isfile = isfile or function(file)
 	local suc, res = pcall(function()
 		return readfile(file)
